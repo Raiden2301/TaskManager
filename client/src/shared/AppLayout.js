@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 // import logo from './logo.svg';               // moved to Header
 import Footer from './Footer';
 import Header from './Header';
-import Nav from './Nav';
+import Nav from './NavBar';
 
 class AppLayout extends Component {
 

@@ -1,10 +1,10 @@
 import React from 'react';
-import logo from './logo.svg';
 
 const Header = () => {
     return (
         <div className="header py-4">
-            <div className="container">
+            <h2>Header</h2>
+            {/* <div className="container">
                 <div className="d-flex">
                     <a className="header-brand" href="/">
                         <img src={logo} className="header-brand-img" alt="Taskker" />
@@ -22,7 +22,7 @@ const Header = () => {
                     </div>
                     <a href="/" className="header-toggler d-lg-none ml-3 ml-lg-0"><span className="header-toggler-icon"></span></a>
                 </div>
-            </div>
+            </div> */}
         </div>
     )
 }

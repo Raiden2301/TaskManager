@@ -1,10 +1,12 @@
 import React from 'react';
 import './App.css';
 
+import AppLayout from '../shared/AppLayout';
+
 function App() {
   return (
     <div className="App">
-      <h1>App page</h1>
+      <AppLayout />
     </div>
   );
 }
