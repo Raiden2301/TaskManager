@@ -1,7 +1,7 @@
 package com.etti.taskManager.model;
 
 import java.sql.Time;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -174,7 +174,7 @@ public class Task {
 		return "Task [id=" + id + ", name=" + name + ", description=" + description + ", comments=" + comments
 				+ ", keyWords=" + keyWords + ", startDate=" + startDate + ", endDate=" + endDate
 				+ ", expectedDeliveryDate=" + expectedDeliveryDate + ", estimatedTime=" + estimatedTime
-				+ ", loggedTime=" + loggedTime + ", status=" + status + ", project=" + project.toString() + "]";
+				+ ", loggedTime=" + loggedTime + ", status=" + status + "]";
 	}
 
 	

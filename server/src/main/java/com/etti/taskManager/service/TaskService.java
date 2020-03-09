@@ -9,5 +9,7 @@ public interface TaskService {
 	public List<Task> getAllTasks();
 	
 	public Task getTaskById(Long id);
+	
+	public void deleteTaskById( Long id);
 
 }
