@@ -10,4 +10,6 @@ public interface EmployeeService {
 	
 	public Employee getEmployeesById(Long id);
 	
+	public void deleteEmployeeById( Long id);
+	
 }

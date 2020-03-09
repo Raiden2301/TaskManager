@@ -27,5 +27,12 @@ public class EmployeeServiceImpl implements EmployeeService{
 		Employee empl = employeeRepository.findById(id).get();
 		return empl;
 	}
+	
+	@Override
+	public void deleteEmployeeById(Long id) {
+		Employee entity = employeeRepository.findById(id).get();
+		System.out.println(entity);
+		employeeRepository.delete(entity);
+	}
 
 }
