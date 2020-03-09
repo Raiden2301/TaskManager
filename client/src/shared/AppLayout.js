@@ -13,15 +13,10 @@ class AppLayout extends Component {
         const { children } = this.props;
 
         return (
-            <div>   {/* <Page> */}
-                <div className={"page-main"}>     {/* <Page.Main> */}
-
-                    {/* <Site.Header /> */}
-                    <Header />
-                    {/* <Site.Nav /> */}
+            <div>
+                <div className={"page-main"}>
                     <Nav />
-                    {/* <Page.Content /> */}
-                    {children}
+                    {/* {children} Aici voi pune pagina principala */}
                 </div>
                 {/*footer*/}
                 <Footer />
