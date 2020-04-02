@@ -1,28 +1,25 @@
 import React, { Component } from 'react';
-// import { NavLink } from 'react-router-dom';  // moved to Nav
 
-// import logo from './logo.svg';               // moved to Header
+import Container from '@material-ui/core/Container';
+
 import Footer from './Footer';
-import Header from './Header';
-import Nav from './NavBar';
+import NavBar from './NavBar';
+import './Layout.css';
 
-class AppLayout extends Component {
 
-    render() {
-
-        const { children } = this.props;
-
-        return (
-            <div>
-                <div className={"page-main"}>
-                    <Nav />
-                    {/* {children} Aici voi pune pagina principala */}
+const AppLayout = (props) => {
+    return (
+        <div>
+            <NavBar title={props.title}></NavBar>
+            <Container maxWidth="md" className="layout-container">
+                <div>
+                    {props.children}
                 </div>
-                {/*footer*/}
-                <Footer />
-            </div>
-        )
-    }
+            </Container>
+
+            <Footer />
+        </div>
+    )
 }
 
 export default AppLayout;

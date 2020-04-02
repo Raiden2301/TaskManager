@@ -1,0 +1,17 @@
+.table-head{
+    background: #3f51b5;
+}
+
+.tableHead-cell{
+    color: white!important;
+    font-size: 1.2rem!important;
+    font-family: sans-serif !important;
+}
+
+.icons-container{
+    display: inline-flex;
+}
+
+.icon-container{
+    margin-right: 1rem !important;
+}

@@ -1,38 +1,28 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { Switch, Route } from 'react-router-dom';
 
+import HomePage from '../Pages/HomePage';
+import Tasks from '../Pages/Tasks';
+import Projects from '../Pages/Projects';
 import './App.css';
-import AppLayout from '../shared/AppLayout';
 
-import { getData } from '../actions/CommonActions';
 
-class App extends React.Component {
-
-  componentDidMount() {
-    this.props.getData({}, 'GET_EMPLOYEES');
-    this.props.getData({}, 'GET_TASKS');
-    this.props.getData({}, 'GET_PROJECTS');
-  }
-
-  render() {
-    console.log("App: ", this.props);
-    return (
-      <div className="App">
-        <AppLayout />
-      </div>
-    );
-  }
+const App = () => {
+  return (
+    <div className="App">
+      <Switch>
+        <Route path="/tasks">
+          <Tasks />
+        </Route>
+        <Route path="/projects">
+          <Projects />
+        </Route>
+        <Route path="/">
+          <HomePage />
+        </Route>
+      </Switch>
+    </div>
+  )
 }
 
-const mapSateToProps = (state, ownProps) => ({
-  employeeObj: state.employeeObj,
-  taskObj: state.taskObj,
-  projetObj: state.projetObj
-});
-
-const mapDispatchToProps = {
-  getData
-};
-
-
-export default connect(mapSateToProps, mapDispatchToProps)(App);
+export default App;
