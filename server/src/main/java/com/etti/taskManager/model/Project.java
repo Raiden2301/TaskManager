@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -46,31 +47,15 @@ public class Project {
 	@Column(name = "end_date", updatable = true, nullable = true)
 	private Date endDate;
 	
-	@ManyToMany(mappedBy = "projects")
-    private Set<Employee> employees = new HashSet<>();
 	
 	@OneToMany(
-			mappedBy = "project",
 			cascade = CascadeType.ALL,
 			orphanRemoval = true)
-	private List<Task> tasks = new LinkedList<>();
-
+	@JoinColumn(name = "task_id")
+	private Set<Task> tasks;
+	
 	public Project() {
 		super();
-	}
-
-	public Project(String name, String description, String comments, String keyWords, Date startDate,
-			Date expectedDeliveryDate, Date endDate, Set<Employee> employees, List<Task> tasks) {
-		super();
-		this.name = name;
-		this.description = description;
-		this.comments = comments;
-		this.keyWords = keyWords;
-		this.startDate = startDate;
-		this.expectedDeliveryDate = expectedDeliveryDate;
-		this.endDate = endDate;
-		this.employees = employees;
-		this.tasks = tasks;
 	}
 
 	public Long getId() {
@@ -137,19 +122,12 @@ public class Project {
 		this.endDate = endDate;
 	}
 
-	public Set<Employee> getEmployees() {
-		return employees;
-	}
 
-	public void setEmployees(Set<Employee> employees) {
-		this.employees = employees;
-	}
-
-	public List<Task> getTasks() {
+	public Set<Task> getTasks() {
 		return tasks;
 	}
 
-	public void setTasks(List<Task> tasks) {
+	public void setTasks(Set<Task> tasks) {
 		this.tasks = tasks;
 	}
 
@@ -157,7 +135,7 @@ public class Project {
 	public String toString() {
 		return "Project [id=" + id + ", name=" + name + ", description=" + description + ", comments=" + comments
 				+ ", keyWords=" + keyWords + ", startDate=" + startDate + ", expectedDeliveryDate="
-				+ expectedDeliveryDate + ", endDate=" + endDate + ", employees=" + employees + ", tasks=" + tasks.toString() + "]";
+				+ expectedDeliveryDate + ", endDate=" + endDate + ", employees=" + ", tasks=" + tasks.toString() + "]";
 	}
 
 	

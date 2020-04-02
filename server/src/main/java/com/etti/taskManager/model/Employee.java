@@ -36,14 +36,7 @@ public class Employee {
 
 	@Column(name = "vechime", updatable = true, nullable = true)
 	private String vechime;
-	
-    @ManyToMany
-    @JoinTable(
-        name = "employee_project", 
-        joinColumns =  @JoinColumn(name = "employee_id"), 
-        inverseJoinColumns =  @JoinColumn(name = "project_id") 
-    )
-    Set<Project> projects = new HashSet<Project>();
+
     
     
 
@@ -59,7 +52,6 @@ public class Employee {
 		this.position = position;
 		this.skills = skills;
 		this.vechime = vechime;
-		this.projects = projects;
 	}
 
 	public Long getId() {
@@ -110,18 +102,10 @@ public class Employee {
 		this.vechime = vechime;
 	}
 
-	public Set<Project> getProjects() {
-		return projects;
-	}
-
-	public void setProjects(Set<Project> projects) {
-		this.projects = projects;
-	}
-
 	@Override
 	public String toString() {
 		return "Employee [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", position=" + position
-				+ ", skills=" + skills + ", vechime=" + vechime + ", projects=" + projects + "]";
+				+ ", skills=" + skills + ", vechime=" + vechime + ", projects="  + "]";
 	}
     
     

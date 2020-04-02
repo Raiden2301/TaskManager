@@ -5,13 +5,16 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "task")
 public class Task {
 	
 	@Id
@@ -49,28 +52,11 @@ public class Task {
 	@Column(name = "status", updatable = true, nullable = true)
 	private String status;
 	
-	@ManyToOne
-	@JoinColumn(name = "project_id")
-	private Project project;
-
+	@Column(name = "project_id")
+	private Long projectId;
+	
 	public Task() {
 		super();
-	}
-
-	public Task(String name, String description, String comments, String keyWords, Date startDate, Date endDate,
-			Date expectedDeliveryDate, Time estimatedTime, Time loggedTime, String status, Project project) {
-		super();
-		this.name = name;
-		this.description = description;
-		this.comments = comments;
-		this.keyWords = keyWords;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.expectedDeliveryDate = expectedDeliveryDate;
-		this.estimatedTime = estimatedTime;
-		this.loggedTime = loggedTime;
-		this.status = status;
-		this.project = project;
 	}
 
 	public Long getId() {
@@ -160,13 +146,14 @@ public class Task {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
 
-	public Project getProject() {
-		return project;
+	public Long getProjectId() {
+		return projectId;
 	}
 
-	public void setProject(Project project) {
-		this.project = project;
+	public void setProjectId(Long projectId) {
+		this.projectId = projectId;
 	}
 
 	@Override

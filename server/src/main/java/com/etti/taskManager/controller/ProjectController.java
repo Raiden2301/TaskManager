@@ -21,10 +21,10 @@ public class ProjectController {
 	ProjectService projectService;
 	
 	@GetMapping(produces = "application/json", value = "/getProjects/")
-	public String getAllProjects(){
+	public List<Project> getAllProjects(){
 		List<Project> projects = projectService.getAllProjects();
 		System.out.println("Asta am gasit: \n" + projects);
-		return "Projects";
+		return projects;
 	}
 	
 	@GetMapping(produces = "application/json", value = "/getProject/{id}")
