@@ -17,7 +17,7 @@ export const employeeReducer = (state = {}, action) => {
             return state;
         }
         case 'GOT_EMPLOYEES': {
-            return Object.assign({}, state, { tests: action.data });
+            return Object.assign({}, state, { employees: action.data });
         }
         default:
             return state;

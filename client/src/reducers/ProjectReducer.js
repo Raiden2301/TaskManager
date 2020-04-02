@@ -16,7 +16,7 @@ export const projectReducer = (state = {}, action) => {
             return state;
         }
         case 'GOT_PROJECTS': {
-            return Object.assign({}, state, { tests: action.data });
+            return Object.assign({}, state, { projects: action.data });
         }
         default:
             return state;

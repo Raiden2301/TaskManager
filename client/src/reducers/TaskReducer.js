@@ -16,7 +16,7 @@ export const taskReducer = (state = {}, action) => {
             return state;
         }
         case 'GOT_TASKS': {
-            return Object.assign({}, state, { tests: action.data });
+            return Object.assign({}, state, { tasks: action.data });
         }
         default:
             return state;
