@@ -10,9 +10,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-import AddIcon from '@material-ui/icons/Add';
 
-import './EditableTable.css';
+import './UtilComponent.css';
 
 const _ = require('lodash');
 
@@ -28,7 +27,6 @@ const EditableTable = (props) => {
     return (
         <TableContainer component={Paper}>
             <Table className={classes.table} aria-label="simple table">
-                {console.log(props.tableHead)}
                 <TableHead className="table-head">
                     <TableRow>
                         {

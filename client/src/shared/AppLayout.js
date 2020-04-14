@@ -12,9 +12,7 @@ const AppLayout = (props) => {
         <div>
             <NavBar title={props.title}></NavBar>
             <Container maxWidth="md" className="layout-container">
-                <div>
-                    {props.children}
-                </div>
+                {props.children}
             </Container>
 
             <Footer />

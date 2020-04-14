@@ -1,14 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Container, Button } from '@material-ui/core';
 
 import AppLayout from '../shared/AppLayout';
 import EditableTable from '../utils/components/EditableTable';
 
 import { getData } from '../actions/CommonActions';
 
-function createData(name, status, startDate, expectedDeliveryDate, loggedTime) {
-    return { name, status, startDate, expectedDeliveryDate, loggedTime };
-}
+import './Pages.css'
 
 function getFields(task) {
     let fields = [];
@@ -32,16 +31,24 @@ class Tasks extends React.Component {
         this.props.taskObj && this.props.taskObj.tasks && this.props.taskObj.tasks.map((task, index) => {
             let row = [];
             fieldsToSend.map((field, index) => {
-                row.push(task[field])
+                if (field == "loggedTime") {
+                    row.push(`${task[field]}h`)
+                } else {
+                    row.push(task[field])
+                }
             })
             rows.push(row)
         })
+
         return (
             <AppLayout title="Tasks">
-                <div>
-                    <EditableTable tableHead={fieldsToSend} rows={rows} />
-                </div>
-            </AppLayout>
+                <EditableTable tableHead={fieldsToSend} rows={rows} />
+                <Container className="buttons-container">
+                    <Button variant="contained" className="primary-buttons">
+                        Primary
+                    </Button>
+                </Container>
+            </AppLayout >
         )
     }
 }

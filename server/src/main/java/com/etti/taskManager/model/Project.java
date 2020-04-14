@@ -1,5 +1,6 @@
 package com.etti.taskManager.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -20,6 +21,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "project")
 public class Project {
+	
+	private SimpleDateFormat formatter;
 	
 	@Id
 	@Column(name = "id", updatable = false, nullable = false)
@@ -56,6 +59,7 @@ public class Project {
 	
 	public Project() {
 		super();
+		formatter = new SimpleDateFormat("dd/MM/yyyy");
 	}
 
 	public Long getId() {
@@ -98,24 +102,27 @@ public class Project {
 		this.keyWords = keyWords;
 	}
 
-	public Date getStartDate() {
-		return startDate;
+	public String getStartDate() {
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		return formatter.format(startDate);
 	}
 
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
 
-	public Date getExpectedDeliveryDate() {
-		return expectedDeliveryDate;
+	public String getExpectedDeliveryDate() {
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		return formatter.format(expectedDeliveryDate);
 	}
 
 	public void setExpectedDeliveryDate(Date expectedDeliveryDate) {
 		this.expectedDeliveryDate = expectedDeliveryDate;
 	}
 
-	public Date getEndDate() {
-		return endDate;
+	public String getEndDate() {
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		return formatter.format(endDate);
 	}
 
 	public void setEndDate(Date endDate) {

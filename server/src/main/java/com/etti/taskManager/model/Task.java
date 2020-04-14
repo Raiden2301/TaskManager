@@ -1,6 +1,7 @@
 package com.etti.taskManager.model;
 
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -44,10 +45,10 @@ public class Task {
 	private Date expectedDeliveryDate;
 	
 	@Column(name = "estimated_time", updatable = true, nullable = true)
-	private Time estimatedTime;
+	private int estimatedTime;
 	
 	@Column(name = "logged_time", updatable = true, nullable = true)
-	private Time loggedTime;
+	private int loggedTime;
 	
 	@Column(name = "status", updatable = true, nullable = true)
 	private String status;
@@ -99,43 +100,46 @@ public class Task {
 		this.keyWords = keyWords;
 	}
 
-	public Date getStartDate() {
-		return startDate;
+	public String getStartDate() {
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		return formatter.format(startDate);
 	}
 
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
 
-	public Date getEndDate() {
-		return endDate;
+	public String getEndDate() {
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		return formatter.format(endDate);
 	}
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
 
-	public Date getExpectedDeliveryDate() {
-		return expectedDeliveryDate;
+	public String getExpectedDeliveryDate() {
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		return formatter.format(expectedDeliveryDate);
 	}
 
 	public void setExpectedDeliveryDate(Date expectedDeliveryDate) {
 		this.expectedDeliveryDate = expectedDeliveryDate;
 	}
 
-	public Time getEstimatedTime() {
+	public int getEstimatedTime() {
 		return estimatedTime;
 	}
 
-	public void setEstimatedTime(Time estimatedTime) {
+	public void setEstimatedTime(int estimatedTime) {
 		this.estimatedTime = estimatedTime;
 	}
 
-	public Time getLoggedTime() {
+	public int getLoggedTime() {
 		return loggedTime;
 	}
 
-	public void setLoggedTime(Time loggedTime) {
+	public void setLoggedTime(int loggedTime) {
 		this.loggedTime = loggedTime;
 	}
 

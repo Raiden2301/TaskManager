@@ -15,3 +15,8 @@
 .icon-container{
     margin-right: 1rem !important;
 }
+
+.text-input{
+    width: 100%;
+    border-bottom: 2px solid black!important;
+}

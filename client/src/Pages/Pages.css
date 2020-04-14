@@ -1,0 +1,49 @@
+.primary-buttons{
+    /* margin-right: 3rem!important; */
+    color: white!important;
+    background-color: #3f51b5!important;
+    /* margin-bottom: 2rem!important; */
+    margin: 0.5rem 1.2rem 1rem!important;
+}
+
+.buttons-container{
+    text-align: right;
+    margin-top: 2rem;
+}
+
+.loading-spinner{
+    margin-top: 10rem;
+}
+
+.grid-horizontal{
+    display: flex!important;
+}
+
+.grid-vertical{
+    display: grid;
+    margin: 0rem 2rem;
+    text-align: center;
+}
+
+.grid-container{
+    width: fit-content!important;
+}
+
+.box-wrapper{
+    margin: 1.2rem 0.7rem;
+}
+
+.date-picker-wrapper{
+    margin: 1.2rem 0;
+}
+
+.date-picker{
+    
+    width: inherit;
+    text-align: inherit;
+    border-bottom: 2px solid black;
+}
+
+.dialog-container{
+    text-align: center;
+}
