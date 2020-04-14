@@ -9,7 +9,11 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.etti.taskManager.model.Task;
@@ -35,6 +39,14 @@ public class TaskController {
 	public Task getTasksById(@PathVariable Long id){
 		Task task = taskService.getTaskById(id);
 		System.out.println("Asta am gasit: " + task.toString());
+		return task;
+	}
+	
+	@PostMapping(produces = "application/json", value="/save/")
+	@ResponseStatus(HttpStatus.OK)
+	@ResponseBody
+	public Task saveTask(@RequestBody Task task) {
+		System.out.println(task);
 		return task;
 	}
 	

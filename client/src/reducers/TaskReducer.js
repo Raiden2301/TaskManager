@@ -18,6 +18,20 @@ export const taskReducer = (state = {}, action) => {
         case 'GOT_TASKS': {
             return Object.assign({}, state, { tasks: action.data });
         }
+        case 'SAVE_TASK': {
+            console.log(action)
+            let data = action.data
+            Axios.post('http://localhost:8081/tasks/save/', data)
+                .then((response) => {
+                    alert("Task was saved")
+                    console.log(response)
+                })
+                .catch((error) => {
+                    alert("Something went wrong")
+                    console.log(error)
+                })
+            return state;
+        }
         default:
             return state;
     }

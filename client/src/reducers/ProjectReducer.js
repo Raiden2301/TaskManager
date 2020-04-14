@@ -18,6 +18,20 @@ export const projectReducer = (state = {}, action) => {
         case 'GOT_PROJECTS': {
             return Object.assign({}, state, { projects: action.data });
         }
+        case 'SAVE_PROJECT': {
+            console.log(action)
+            let data = action.data
+            Axios.post('http://localhost:8081/projects/save/', data)
+                .then((response) => {
+                    alert("Project was saved")
+                    console.log(response)
+                })
+                .catch((error) => {
+                    alert("Something went wrong")
+                    console.log(error)
+                })
+            return state;
+        }
         default:
             return state;
     }

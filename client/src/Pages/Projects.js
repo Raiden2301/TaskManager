@@ -1,14 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import BeatLoader from "react-spinners/BeatLoader";
-import { Container, Button, TextField } from '@material-ui/core';
+import { Container, Button } from '@material-ui/core';
 import DatePicker from 'react-date-picker';
 
 import TextInputBoxWrapper from './components/TextInputBoxWrapper'
 import DialogWindow from './components/DialogWindow';
 import AppLayout from '../shared/AppLayout';
 import EditableTable from '../utils/components/EditableTable';
-import { getData } from '../actions/CommonActions';
+import { getData, onSave } from '../actions/CommonActions';
 
 import './Pages.css'
 
@@ -30,14 +30,14 @@ class Projects extends React.Component {
             newProject: {
                 name: '',
                 description: '',
-                selectedStartDate: new Date(),
-                selectedDeliveryDate: new Date(),
+                startDate: new Date(),
+                expectedDeliveryDate: new Date(),
             },
             emptyProjectData: {
                 name: '',
                 description: '',
-                selectedStartDate: new Date(),
-                selectedDeliveryDate: new Date(),
+                startDate: new Date(),
+                expectedDeliveryDate: new Date(),
             }
         }
     }
@@ -78,7 +78,8 @@ class Projects extends React.Component {
     }
 
     handleSave = () => {
-
+        console.log(this.props.projectObj.projects)
+        this.props.onSave("SAVE_PROJECT", this.state.newProject)
     }
 
     getDialogActions = () => {
@@ -139,12 +140,12 @@ class Projects extends React.Component {
                             className="date-picker"
                             showLeadingZeros={true}
                             dateFormat="dd-MM-y"
-                            value={this.state.newProject.selectedStartDate}
+                            value={this.state.newProject.startDate}
                             onChange={date => {
                                 this.setState({
                                     newProject: {
                                         ...this.state.newProject,
-                                        selectedStartDate: date
+                                        startDate: date
                                     }
                                 })
                             }}
@@ -158,12 +159,12 @@ class Projects extends React.Component {
                             // clearIcon={null}
                             showLeadingZeros={true}
                             dateFormat="dd/MM/yyyy"
-                            value={this.state.newProject.selectedDeliveryDate}
+                            value={this.state.newProject.expectedDeliveryDate}
                             onChange={date => {
                                 this.setState({
                                     newProject: {
                                         ...this.state.newProject,
-                                        selectedDeliveryDate: date
+                                        expectedDeliveryDate: date
                                     }
                                 })
                             }}
@@ -177,7 +178,6 @@ class Projects extends React.Component {
 
     render() {
         //To do: make the same changes as in projects
-        console.log(this.state)
         const fields = this.props.projectObj.projects && getFields(this.props.projectObj.projects[0]);
         let fieldsToSend = fields && [fields[0], fields[1], fields[6], fields[7]];
         let rows = [];
@@ -230,7 +230,8 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = {
-    getData
+    getData,
+    onSave
 };
 
 
