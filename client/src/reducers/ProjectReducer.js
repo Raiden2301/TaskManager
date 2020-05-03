@@ -20,12 +20,10 @@ export const projectReducer = (state = {}, action) => {
             return Object.assign({}, state, { projects: action.data });
         }
         case 'SAVE_PROJECT': {
-            console.log("Data to be sent:", action.data)
             let data = action.data
             Axios.post('http://localhost:8081/projects/save/', data)
                 .then((response) => {
                     alert("Project was saved")
-                    console.log(response)
                 })
                 .catch((error) => {
                     alert("Something went wrong")
@@ -35,7 +33,6 @@ export const projectReducer = (state = {}, action) => {
 
         }
         case 'EDIT_PROJECT': {
-            console.log(action);
             let id = action.id;
             history.push(`/project/${id}`);
             return Object.assign({}, state, { projectToBeEdited: id });

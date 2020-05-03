@@ -38,10 +38,10 @@ const ProjectEdit = (props) => {
     }, [projectId]);
 
     const project = props.projectObj.requestedProject
-    const tasks = props.taskObj.tasksByProject
+    const tasks = props.taskObj.tasksByProject ? props.taskObj.tasksByProject : null
 
 
-    const fields = tasks && getFields(tasks[0]);
+    const fields = tasks ? getFields(tasks[0]) : null;
     let fieldsToSend = fields && [fields[1], fields[10], fields[5], fields[7], fields[9]];
     let rows = [];
     // eslint-disable-next-line array-callback-return
@@ -65,7 +65,7 @@ const ProjectEdit = (props) => {
         expectedDeliveryDate: new Date(),
         projectId: id,
         loggedTime: 0,
-        estimatedTime: 10,
+        estimatedTime: '',
         status: 'TO DO'
     }
 
@@ -73,6 +73,7 @@ const ProjectEdit = (props) => {
     const [taskDetails, setTaskDetails] = useState({
         name: '',
         description: '',
+        estimatedTime: 0,
         startDate: new Date(),
         expectedDeliveryDate: new Date()
     })
@@ -93,6 +94,7 @@ const ProjectEdit = (props) => {
 
     const handleSave = () => {
         props.onSave("SAVE_TASK", taskDetails)
+        setOpen(false)
     }
 
     const getDialogActions = () => {
@@ -110,6 +112,23 @@ const ProjectEdit = (props) => {
             </Container>
         )
     }
+    // const getDescription = () =>{
+    //     return (
+    //         <TextInputBoxWrapper
+    //         id="taskDescriptionDialog"
+    //         label="Description"
+    //         // error={props.error}
+    //         disabled={false}
+    //         required={false}
+    //         value={taskDetails.description}
+    //         onChange={(event) => {
+    //             setTaskDetails({ ...taskDetails, description: event.target.value })
+    //         }}
+    //         variant="standard"
+    //         placeholder="Task Description"
+    //     />
+    //     )
+    // }
 
     const getDialogContent = () => {
         return (
@@ -140,6 +159,20 @@ const ProjectEdit = (props) => {
                         }}
                         variant="standard"
                         placeholder="Task Description"
+                    />
+                    <TextInputBoxWrapper
+                        id="estimatedTime"
+                        type="number"
+                        label="Estimated Time"
+                        // error={props.error}
+                        disabled={false}
+                        required={false}
+                        value={taskDetails.estimatedTime}
+                        onChange={(event) => {
+                            setTaskDetails({ ...taskDetails, estimatedTime: event.target.value })
+                        }}
+                        variant="standard"
+                        placeholder="Estimated hours"
                     />
                     <Container className="date-picker-wrapper">
                         <DatePicker
@@ -232,7 +265,7 @@ const ProjectEdit = (props) => {
                             </Typography>
                             <Container className="buttons-container">
                                 <Button variant="contained" className="primary-buttons"  >
-                                    Save details
+                                    Update details
                             </Button>
                             </Container>
                         </Paper>

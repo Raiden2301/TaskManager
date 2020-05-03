@@ -81,7 +81,6 @@ class Tasks extends React.Component {
     }
 
     handleSave = () => {
-        console.log(this.props.taskObj.tasks)
         this.props.onSave("SAVE_TASK", this.state.newTask)
     }
 
@@ -196,7 +195,6 @@ class Tasks extends React.Component {
             })
             rows.push(row)
         })
-        console.log(this.props.taskObj.tasks)
 
         return (
             <AppLayout title="Tasks">

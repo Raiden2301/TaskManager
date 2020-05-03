@@ -81,8 +81,10 @@ class Projects extends React.Component {
     }
 
     handleSave = () => {
-        console.log(this.props.projectObj.projects)
         this.props.onSave("SAVE_PROJECT", this.state.newProject)
+        this.setState({
+            openDialog: false
+        })
     }
 
     getDialogActions = () => {
@@ -182,7 +184,6 @@ class Projects extends React.Component {
     render() {
         //To do: make the same changes as in projects
         const fields = this.props.projectObj.projects && getFields(this.props.projectObj.projects[0]);
-        console.log("Proiectele", this.props.projectObj.projects)
         let fieldsToSend = fields && [fields[0], fields[1], fields[5], fields[6]];
         let rows = [];
         // eslint-disable-next-line array-callback-return
