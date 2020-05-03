@@ -15,6 +15,7 @@ import './Pages.css'
 
 function getFields(task) {
     let fields = [];
+    // eslint-disable-next-line array-callback-return
     Object.entries(task).map(([key, value], index) => {
         fields.push(key);
     });
@@ -182,10 +183,12 @@ class Tasks extends React.Component {
         const fields = this.props.taskObj.tasks && getFields(this.props.taskObj.tasks[0]);
         let fieldsToSend = fields && [fields[1], fields[10], fields[5], fields[7], fields[9]];
         let rows = [];
+        // eslint-disable-next-line array-callback-return
         this.props.taskObj && this.props.taskObj.tasks && this.props.taskObj.tasks.map((task, index) => {
             let row = [];
+            // eslint-disable-next-line array-callback-return
             fieldsToSend.map((field, index) => {
-                if (field == "loggedTime") {
+                if (field === "loggedTime") {
                     row.push(`${task[field]}h`)
                 } else {
                     row.push(task[field])
@@ -193,6 +196,7 @@ class Tasks extends React.Component {
             })
             rows.push(row)
         })
+        console.log(this.props.taskObj.tasks)
 
         return (
             <AppLayout title="Tasks">

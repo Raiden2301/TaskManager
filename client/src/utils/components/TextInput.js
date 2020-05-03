@@ -64,7 +64,6 @@ TextInput.defaultProps = {
     rowsMax: 1,
     rows: 1,
     helperText: "",
-    defaultValue: "",
     placeholder: ""
 };
 

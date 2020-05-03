@@ -38,9 +38,6 @@ public class Task {
 	@Column(name = "start_date", updatable = true, nullable = true)
 	private Date startDate;
 	
-	@Column(name = "end_date", updatable = true, nullable = true)
-	private Date endDate;
-	
 	@Column(name = "expected_delivery_date", updatable = true, nullable = true)
 	private Date expectedDeliveryDate;
 	
@@ -109,15 +106,6 @@ public class Task {
 		this.startDate = startDate;
 	}
 
-	public String getEndDate() {
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-		return formatter.format(endDate);
-	}
-
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}
-
 	public String getExpectedDeliveryDate() {
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		return formatter.format(expectedDeliveryDate);
@@ -160,13 +148,4 @@ public class Task {
 		this.projectId = projectId;
 	}
 
-	@Override
-	public String toString() {
-		return "Task [id=" + id + ", name=" + name + ", description=" + description + ", comments=" + comments
-				+ ", keyWords=" + keyWords + ", startDate=" + startDate + ", endDate=" + endDate
-				+ ", expectedDeliveryDate=" + expectedDeliveryDate + ", estimatedTime=" + estimatedTime
-				+ ", loggedTime=" + loggedTime + ", status=" + status + "]";
-	}
-
-	
 }

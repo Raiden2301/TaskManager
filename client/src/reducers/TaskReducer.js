@@ -19,7 +19,7 @@ export const taskReducer = (state = {}, action) => {
             return Object.assign({}, state, { tasks: action.data });
         }
         case 'SAVE_TASK': {
-            console.log(action)
+            console.log("data to be sent:", action.data)
             let data = action.data
             Axios.post('http://localhost:8081/tasks/save/', data)
                 .then((response) => {
@@ -31,6 +31,21 @@ export const taskReducer = (state = {}, action) => {
                     console.log(error)
                 })
             return state;
+        }
+        case 'GET_TASKS_BY_PROJECT': {
+            let id = action.id
+            let url = `http://localhost:8081/tasks/getTaskByProject/${id}/`;
+            Axios.get(url)
+                .then((response) => {
+                    store.dispatch(gotData(response.data, 'GOT_TASKS_BY_PROJECT'));
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+            return state;
+        }
+        case 'GOT_TASKS_BY_PROJECT': {
+            return Object.assign({}, state, { tasksByProject: action.data });
         }
         default:
             return state;

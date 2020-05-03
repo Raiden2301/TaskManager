@@ -1,6 +1,7 @@
 package com.etti.taskManager.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -41,11 +42,19 @@ public class TaskController {
 		System.out.println("Asta am gasit: " + task.toString());
 		return task;
 	}
+	@CrossOrigin
+	@GetMapping(produces = "application/json", value = "/getTaskByProject/{id}/")
+	public Set<Task> getTasksByProject(@PathVariable Long id){
+		Set<Task> task = taskService.getTasksByProject(id);
+		System.out.println("Asta am gasit: " + task.toString());
+		return task;
+	}
 	
 	@PostMapping(produces = "application/json", value="/save/")
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
 	public Task saveTask(@RequestBody Task task) {
+		taskService.createUpdateTask(task);
 		System.out.println(task);
 		return task;
 	}

@@ -22,10 +22,9 @@ import javax.persistence.Table;
 @Table(name = "project")
 public class Project {
 	
-	private SimpleDateFormat formatter;
 	
 	@Id
-	@Column(name = "id", updatable = false, nullable = false)
+	@Column(name = "id", updatable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
@@ -47,10 +46,6 @@ public class Project {
 	@Column(name = "expected_delivery_date", updatable = true, nullable = true)
 	private Date expectedDeliveryDate;
 	
-	@Column(name = "end_date", updatable = true, nullable = true)
-	private Date endDate;
-	
-	
 	@OneToMany(
 			cascade = CascadeType.ALL,
 			orphanRemoval = true)
@@ -59,7 +54,6 @@ public class Project {
 	
 	public Project() {
 		super();
-		formatter = new SimpleDateFormat("dd/MM/yyyy");
 	}
 
 	public Long getId() {
@@ -106,6 +100,10 @@ public class Project {
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		return formatter.format(startDate);
 	}
+	
+	public Date getStartDateForSave() {
+		return startDate;
+	}
 
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
@@ -115,20 +113,13 @@ public class Project {
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		return formatter.format(expectedDeliveryDate);
 	}
+	public Date getExpectedDeliveryDateForSave() {
+		return expectedDeliveryDate;
+	}
 
 	public void setExpectedDeliveryDate(Date expectedDeliveryDate) {
 		this.expectedDeliveryDate = expectedDeliveryDate;
 	}
-
-	public String getEndDate() {
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-		return formatter.format(endDate);
-	}
-
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}
-
 
 	public Set<Task> getTasks() {
 		return tasks;
@@ -137,14 +128,5 @@ public class Project {
 	public void setTasks(Set<Task> tasks) {
 		this.tasks = tasks;
 	}
-
-	@Override
-	public String toString() {
-		return "Project [id=" + id + ", name=" + name + ", description=" + description + ", comments=" + comments
-				+ ", keyWords=" + keyWords + ", startDate=" + startDate + ", expectedDeliveryDate="
-				+ expectedDeliveryDate + ", endDate=" + endDate + ", employees=" + ", tasks=" + tasks.toString() + "]";
-	}
-
-	
 
 }

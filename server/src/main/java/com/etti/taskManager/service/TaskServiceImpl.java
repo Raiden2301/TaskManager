@@ -1,6 +1,7 @@
 package com.etti.taskManager.service;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -28,6 +29,12 @@ public class TaskServiceImpl implements TaskService {
 		Task task = taskRepository.findById(id).get();
 		return task;
 	}
+	
+	@Override
+	public Set<Task> getTasksByProject(Long projectId) {
+		return taskRepository.findTasksByProject(projectId);
+	}
+	
 
 	@Override
 	public void deleteTaskById(Long id) {
@@ -36,5 +43,12 @@ public class TaskServiceImpl implements TaskService {
 		taskRepository.delete(entity);
 		
 	}
+
+	@Override
+	public Task createUpdateTask(Task task) {
+		task = taskRepository.save(task);
+		return null;
+	}
+
 
 }

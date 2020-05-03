@@ -9,5 +9,6 @@ public interface ProjectService {
 	public List<Project> getAllProjects();
 	
 	public Project getProjectById(Long id);
-
+	
+	public Project createUpdateProject(Project project);
 }

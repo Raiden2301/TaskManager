@@ -43,7 +43,7 @@ public class ProjectController {
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
 	public Project saveProject(@RequestBody Project project) {
-		System.out.println(project);
+		projectService.createUpdateProject(project);
 		return project;
 	}
 	

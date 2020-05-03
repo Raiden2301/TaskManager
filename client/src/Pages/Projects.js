@@ -9,11 +9,13 @@ import DialogWindow from './components/DialogWindow';
 import AppLayout from '../shared/AppLayout';
 import EditableTable from '../utils/components/EditableTable';
 import { getData, onSave } from '../actions/CommonActions';
+import { deleteProjectById } from '../actions/ProjectActions';
 
 import './Pages.css'
 
 function getFields(project) {
     let fields = [];
+    // eslint-disable-next-line array-callback-return
     Object.entries(project).map(([key, value], index) => {
         fields.push(key);
     });
@@ -27,6 +29,7 @@ class Projects extends React.Component {
         this.state = {
             loading: true,
             openDialog: false,
+            openConfirmation: false,
             newProject: {
                 name: '',
                 description: '',
@@ -179,10 +182,13 @@ class Projects extends React.Component {
     render() {
         //To do: make the same changes as in projects
         const fields = this.props.projectObj.projects && getFields(this.props.projectObj.projects[0]);
-        let fieldsToSend = fields && [fields[0], fields[1], fields[6], fields[7]];
+        console.log("Proiectele", this.props.projectObj.projects)
+        let fieldsToSend = fields && [fields[0], fields[1], fields[5], fields[6]];
         let rows = [];
+        // eslint-disable-next-line array-callback-return
         this.props.projectObj && this.props.projectObj.projects && this.props.projectObj.projects.map((project, index) => {
             let row = [];
+            // eslint-disable-next-line array-callback-return
             fieldsToSend.map((field, index) => {
                 row.push(project[field])
             })
@@ -203,7 +209,7 @@ class Projects extends React.Component {
                     </div>
 
                     : <React.Fragment>
-                        <EditableTable tableHead={fieldsToSend} rows={rows} />
+                        <EditableTable tableHead={fieldsToSend} rows={rows} name="projects" handleDeleteRequest={this.handleDeleteRequest} />
                         <Container className="buttons-container">
                             <Button variant="contained" className="primary-buttons" onClick={this.handleCreateProject}>
                                 NEW Project
@@ -219,7 +225,6 @@ class Projects extends React.Component {
                     actions={this.getDialogActions()}
                     content={this.getDialogContent()}
                 />
-
             </AppLayout>
         )
     }
@@ -231,7 +236,8 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = {
     getData,
-    onSave
+    onSave,
+    deleteProjectById
 };
 
 
