@@ -5,7 +5,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 
 import AppMenu from './Menu';
-import SideDrawer from './SideDrawer';
 
 const useStyles = makeStyles(theme => ({
     root: {

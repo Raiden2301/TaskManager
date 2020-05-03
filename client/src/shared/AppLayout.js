@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import Container from '@material-ui/core/Container';
 
@@ -11,7 +11,7 @@ const AppLayout = (props) => {
     return (
         <div>
             <NavBar title={props.title}></NavBar>
-            <Container maxWidth="md" className="layout-container">
+            <Container maxWidth={props.maxWidth ? props.maxWidth : "md"} className="layout-container">
                 {props.children}
             </Container>
 
