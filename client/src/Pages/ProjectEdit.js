@@ -6,7 +6,7 @@ import DatePicker from 'react-date-picker';
 // eslint-disable-next-line no-unused-vars
 import { Container, Button, Grid, TextField, Paper, Typography } from '@material-ui/core';
 
-import EditableTable from '../utils/components/EditableTable';
+import EnhancedTable from '../utils/components/EnhancedTable';
 import AppLayout from '../shared/AppLayout';
 import TextInputBoxWrapper from './components/TextInputBoxWrapper'
 import DialogWindow from './components/DialogWindow';
@@ -15,6 +15,8 @@ import { getProjectById } from '../actions/ProjectActions'
 import { getTasksByProject } from '../actions/TaskActions'
 
 import './Pages.css'
+
+const _ = require('lodash');
 
 function getFields(task) {
     let fields = [];
@@ -43,19 +45,26 @@ const ProjectEdit = (props) => {
 
     const fields = tasks ? getFields(tasks[0]) : null;
     let fieldsToSend = fields && [fields[1], fields[10], fields[5], fields[7], fields[9]];
-    let rows = [];
-    // eslint-disable-next-line array-callback-return
-    tasks && tasks.map((task, index) => {
-        let row = [];
-        // eslint-disable-next-line array-callback-return
-        fieldsToSend.map((field, index) => {
-            if (field === "loggedTime") {
-                row.push(`${task[field]}h`)
-            } else {
-                row.push(task[field])
+
+    let header = [];
+    fieldsToSend && fieldsToSend.map((field, index) => {
+        let columnHeader = {
+            title: _.startCase(field),
+            field: field
+        }
+
+        header.push(columnHeader)
+    })
+
+    let tasksData = [];
+    props.taskObj && props.taskObj.tasksByProject && props.taskObj.tasksByProject.map((task, index) => {
+        let taskToPush = {
+            ...task, cellStyle: {
+                backgroundColor: '#039be5',
+                color: '#FFF'
             }
-        })
-        rows.push(row)
+        }
+        tasksData.push(taskToPush)
     })
 
     const emptyTaskData = {
@@ -112,23 +121,6 @@ const ProjectEdit = (props) => {
             </Container>
         )
     }
-    // const getDescription = () =>{
-    //     return (
-    //         <TextInputBoxWrapper
-    //         id="taskDescriptionDialog"
-    //         label="Description"
-    //         // error={props.error}
-    //         disabled={false}
-    //         required={false}
-    //         value={taskDetails.description}
-    //         onChange={(event) => {
-    //             setTaskDetails({ ...taskDetails, description: event.target.value })
-    //         }}
-    //         variant="standard"
-    //         placeholder="Task Description"
-    //     />
-    //     )
-    // }
 
     const getDialogContent = () => {
         return (
@@ -273,7 +265,12 @@ const ProjectEdit = (props) => {
                             <div className="place-left">
                                 <h5>Tasks</h5>
                             </div>
-                            <EditableTable tableHead={fieldsToSend} rows={rows} />
+                            {/* <EditableTable tableHead={fieldsToSend} rows={rows} /> */}
+                            <EnhancedTable
+                                columns={header}
+                                data={tasksData}
+                                name="tasks"
+                            />
                             <Container className="buttons-container">
                                 <Button variant="contained" className="primary-buttons" onClick={() => handleCreateTask()}>
                                     Add task

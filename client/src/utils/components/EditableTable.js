@@ -15,6 +15,7 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import { editProject, deleteProjectById } from '../../actions/ProjectActions';
 
 import ConfirmationDialog from './ConfirmationDialog';
+import TaskEditDialog from './TaskEditDialog';
 
 import './UtilComponent.css';
 
@@ -27,7 +28,8 @@ class EditableTable extends React.Component {
         super(props);
         this.state = {
             openConfirmation: false,
-            idForDeletion: null
+            idForDeletion: null,
+            openTaskEdit: false
         }
     }
 
@@ -55,10 +57,21 @@ class EditableTable extends React.Component {
         })
     }
 
+    handleTaskEditCancel = () => {
+        this.setState({
+            openTaskEdit: false
+        })
+    }
+
+    handleTaskSave = () => {
+        console.log("Saved")
+    }
+
 
     render() {
         return (
             <React.Fragment>
+                {console.log("Editable ", this.props)}
                 <TableContainer component={Paper}>
                     <Table className="table" aria-label="simple table">
                         <TableHead className="table-head">
@@ -116,6 +129,13 @@ class EditableTable extends React.Component {
                     openConfirmation={this.state.openConfirmation}
                     handleDelete={this.handleDelete}
                     handleCancel={this.handleCancel}
+                />
+
+                <TaskEditDialog
+                    title="Edit Task"
+                    openTaskEdit={this.state.openTaskEdit}
+                    handleSave={this.handleTaskSave}
+                    handleCancel={this.handleTaskEditCancel}
                 />
             </React.Fragment>
         );

@@ -11,4 +11,6 @@ public interface ProjectService {
 	public Project getProjectById(Long id);
 	
 	public Project createUpdateProject(Project project);
+	
+	public void deleteProjectById( Long id);
 }

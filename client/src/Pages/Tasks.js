@@ -7,7 +7,7 @@ import DatePicker from 'react-date-picker';
 import TextInputBoxWrapper from './components/TextInputBoxWrapper'
 import DialogWindow from './components/DialogWindow';
 import AppLayout from '../shared/AppLayout';
-import EditableTable from '../utils/components/EditableTable';
+// import EditableTable from '../utils/components/EditableTable';
 
 import { getData, onSave } from '../actions/CommonActions';
 
@@ -211,7 +211,7 @@ class Tasks extends React.Component {
                     </div>
                     :
                     <React.Fragment>
-                        <EditableTable tableHead={fieldsToSend} rows={rows} />
+                        {/* <EditableTable tableHead={fieldsToSend} rows={rows} /> */}
                         <Container className="buttons-container">
                             <Button variant="contained" className="primary-buttons" onClick={this.handleCreateTask}>
                                 New Task

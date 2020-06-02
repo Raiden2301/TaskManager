@@ -5,13 +5,12 @@ import AppLayout from '../shared/AppLayout';
 import history from '../history';
 
 const HomePage = (props) => {
-    const preventDefault = (event) => event.preventDefault();
     const here = ' here '
     return (
         <AppLayout title="Home Page">
             <div className="home-page">
                 <Typography variant="h6">
-                    Welcome User! You can check projcts from
+                    Welcome User! You can check projects from
                     <Link href="#" onClick={() => {
                         history.push('/projects');
                     }}>

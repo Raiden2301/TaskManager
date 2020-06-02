@@ -55,6 +55,14 @@ public class ProjectServiceImpl implements ProjectService {
             return project;
 		
 	}
+
+	@Override
+	public void deleteProjectById(Long id) {
+		// TODO Auto-generated method stub
+		Project entityProject = projectRepository.findById(id).get();
+		System.out.println(entityProject + "Has been deleted!");
+		projectRepository.delete(entityProject);
+	}
 	
 	
 

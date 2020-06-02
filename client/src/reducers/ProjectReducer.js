@@ -1,3 +1,5 @@
+import React from 'react';
+import Alert from '@material-ui/lab/Alert';
 import Axios from 'axios';
 import { gotData } from '../actions/CommonActions';
 import { store } from '../store';
@@ -54,15 +56,29 @@ export const projectReducer = (state = {}, action) => {
         }
         case 'DELETE_PROJECT_BY_ID': {
             let id = action.id;
-            console.log("deletion reducer", id)
-            // let url = `http://localhost:8081/projects/getProject/${id}`;
-            // Axios.get(url)
-            //     .then((response) => {
-            //         store.dispatch(gotData(response.data, 'GOT_PROJECT_BY_ID'));
-            //     })
-            //     .catch((error) => {
-            //         console.log(error);
-            //     });
+            let url = `http://localhost:8081/projects/deleteProject/${id}`;
+            Axios.delete(url)
+                .then((response) => {
+                    const snackBar = () => {
+                        return (
+                            <Alert variant="filled" severity="success">
+                                This is a success alert — check it out!
+                            </Alert>
+                        )
+                    }
+                    return Object.assign({}, state, { projectDeleted: snackBar });
+                })
+                .catch((error) => {
+                    const snackBar = () => {
+                        return (
+                            <Alert variant="filled" severity="error">
+                                This is a success alert — check it out!
+                            </Alert>
+                        )
+                    }
+                    console.log(error);
+                    return Object.assign({}, state, { projectDeleted: snackBar });
+                });
             return state;
         }
         default:

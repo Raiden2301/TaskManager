@@ -98,7 +98,7 @@ public class Task {
 	}
 
 	public String getStartDate() {
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 		return formatter.format(startDate);
 	}
 
@@ -107,7 +107,7 @@ public class Task {
 	}
 
 	public String getExpectedDeliveryDate() {
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 		return formatter.format(expectedDeliveryDate);
 	}
 

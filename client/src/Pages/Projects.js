@@ -7,11 +7,13 @@ import DatePicker from 'react-date-picker';
 import TextInputBoxWrapper from './components/TextInputBoxWrapper'
 import DialogWindow from './components/DialogWindow';
 import AppLayout from '../shared/AppLayout';
-import EditableTable from '../utils/components/EditableTable';
+import EnhancedTable from '../utils/components/EnhancedTable';
 import { getData, onSave } from '../actions/CommonActions';
 import { deleteProjectById } from '../actions/ProjectActions';
 
 import './Pages.css'
+
+const _ = require('lodash');
 
 function getFields(project) {
     let fields = [];
@@ -182,19 +184,24 @@ class Projects extends React.Component {
     }
 
     render() {
-        //To do: make the same changes as in projects
+        const alert = this.props.projectObj && this.props.projectObj.projectDeleted && this.props.projectObj.projectDeleted
         const fields = this.props.projectObj.projects && getFields(this.props.projectObj.projects[0]);
         let fieldsToSend = fields && [fields[0], fields[1], fields[5], fields[6]];
-        let rows = [];
-        // eslint-disable-next-line array-callback-return
-        this.props.projectObj && this.props.projectObj.projects && this.props.projectObj.projects.map((project, index) => {
-            let row = [];
-            // eslint-disable-next-line array-callback-return
-            fieldsToSend.map((field, index) => {
-                row.push(project[field])
-            })
-            rows.push(row)
+
+        let header = [];
+        fieldsToSend && fieldsToSend.map((field, index) => {
+            let columnHeader = {
+                title: _.startCase(field),
+                field: field
+            }
+            header.push(columnHeader)
         })
+
+        let data = [];
+        this.props.projectObj && this.props.projectObj.projects && this.props.projectObj.projects.map((project, index) => {
+            data.push(project)
+        })
+
         return (
             <AppLayout title="Projects">
                 {this.state.loading
@@ -210,7 +217,11 @@ class Projects extends React.Component {
                     </div>
 
                     : <React.Fragment>
-                        <EditableTable tableHead={fieldsToSend} rows={rows} name="projects" handleDeleteRequest={this.handleDeleteRequest} />
+                        <EnhancedTable
+                            columns={header}
+                            data={data}
+                            name="projects"
+                        />
                         <Container className="buttons-container">
                             <Button variant="contained" className="primary-buttons" onClick={this.handleCreateProject}>
                                 NEW Project
@@ -226,6 +237,7 @@ class Projects extends React.Component {
                     actions={this.getDialogActions()}
                     content={this.getDialogContent()}
                 />
+                {alert && alert}
             </AppLayout>
         )
     }

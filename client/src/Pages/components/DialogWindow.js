@@ -19,7 +19,6 @@ const DialogWindow = (props) => {
             <DialogActions>
                 <Container>
                     {actions}
-
                 </Container>
             </DialogActions>
         </Dialog>

@@ -54,6 +54,7 @@ public class TaskController {
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
 	public Task saveTask(@RequestBody Task task) {
+		System.out.println(task.toString());
 		taskService.createUpdateTask(task);
 		System.out.println(task);
 		return task;

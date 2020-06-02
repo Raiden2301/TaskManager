@@ -39,9 +39,8 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	public void deleteTaskById(Long id) {
 		Task entity = taskRepository.findById(id).get();
-		System.out.println(entity);
+		System.out.println(entity + "Has been deleted!");
 		taskRepository.delete(entity);
-		
 	}
 
 	@Override

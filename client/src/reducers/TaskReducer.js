@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import { gotData } from '../actions/CommonActions';
+import { getData, gotData } from '../actions/CommonActions';
 import { store } from '../store';
 
 export const taskReducer = (state = {}, action) => {

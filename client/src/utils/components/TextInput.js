@@ -26,10 +26,13 @@ const TextInput = (props) => {
             rowsMax={props.rowsMax}
             rows={props.rows}
             value={props.value}
+            select={props.select}
             onChange={props.onChange}
             defaultValue={props.defaultValue}
             placeholder={props.placeholder}
-        />
+        >
+            {props.children}
+        </TextField>
     );
 }
 
@@ -42,6 +45,7 @@ TextInput.propTypes = {
     error: PropTypes.bool,
     type: PropTypes.oneOf(['string', 'number', 'password']).isRequired,
     variant: PropTypes.oneOf(['standard', 'filled', 'outlined']),
+    select: PropTypes.bool,
     multiline: PropTypes.bool,
     rowsMax: PropTypes.number,
     rows: PropTypes.number,
@@ -60,6 +64,7 @@ TextInput.defaultProps = {
     error: false,
     type: "string",
     variant: "standard",
+    select: false,
     multiline: false,
     rowsMax: 1,
     rows: 1,
