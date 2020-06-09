@@ -93,4 +93,14 @@
     margin-left: 2rem!important;
 }
 
+.login-forms{
+    display: inline-grid;
+}
+
+.form-fields{
+    margin: 0.8rem !important;
+    min-width: 20rem !important;
+
+}
+
 

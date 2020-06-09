@@ -13,3 +13,12 @@ export const onSave = (type = 'SAVE', data) => ({
     type: type,
     data: data
 })
+
+export const initializeLogin = (type = "INITIALIZE_LOGIN") => ({
+    type: type
+})
+
+export const updateLogin = (type = "UPDATE_LOGIN", status) => ({
+    type: type,
+    status: status
+})
