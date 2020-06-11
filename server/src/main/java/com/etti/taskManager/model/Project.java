@@ -10,13 +10,18 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "project")
@@ -34,23 +39,24 @@ public class Project {
 	@Column(name = "description", updatable = true, nullable = false)
 	private String description;
 	
-	@Column(name = "comments", updatable = true, nullable = true)
-	private String comments;
-	
-	@Column(name = "key_words", updatable = true, nullable = true)
-	private String keyWords;
-	
 	@Column(name = "start_date", updatable = true, nullable = true)
 	private Date startDate;
 	
 	@Column(name = "expected_delivery_date", updatable = true, nullable = true)
 	private Date expectedDeliveryDate;
 	
-	@OneToMany(
-			cascade = CascadeType.ALL,
-			orphanRemoval = true)
-	@JoinColumn(name = "task_id")
+	@JsonManagedReference
+	@OneToMany(mappedBy="project")
 	private Set<Task> tasks;
+	
+	@JsonBackReference
+	@ManyToMany(
+			fetch=FetchType.LAZY)
+	@JoinTable(
+			name = "assigned_projects", 
+			joinColumns = @JoinColumn(name = "project_id"), 
+			inverseJoinColumns = @JoinColumn(name = "employee_id"))
+	Set<Employee> assignedEmployees;
 	
 	public Project() {
 		super();
@@ -78,22 +84,6 @@ public class Project {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public String getComments() {
-		return comments;
-	}
-
-	public void setComments(String comments) {
-		this.comments = comments;
-	}
-
-	public String getKeyWords() {
-		return keyWords;
-	}
-
-	public void setKeyWords(String keyWords) {
-		this.keyWords = keyWords;
 	}
 
 	public String getStartDate() {
@@ -129,4 +119,12 @@ public class Project {
 		this.tasks = tasks;
 	}
 
+	public Set<Employee> getAssignedEmployees() {
+		return assignedEmployees;
+	}
+
+	public void setAssignedEmployees(Set<Employee> assignedEmployees) {
+		this.assignedEmployees = assignedEmployees;
+	}
+	
 }

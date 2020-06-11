@@ -3,15 +3,20 @@ package com.etti.taskManager.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "employee")
@@ -42,6 +47,19 @@ public class Employee {
 	
 	@Column(name = "password", updatable = true, nullable = true)
 	private String password;
+	
+	@JsonManagedReference
+	@ManyToMany(
+			fetch=FetchType.LAZY)
+	@JoinTable(
+			name = "assigned_projects", 
+			joinColumns = @JoinColumn(name = "employee_id"), 
+			inverseJoinColumns = @JoinColumn(name = "project_id"))
+	Set <Project> assignedProjects;
+	
+	@JsonManagedReference
+	@OneToMany(mappedBy="employee")
+	private Set<Task> assignedTasks;
     
 
 	public Employee() {
@@ -121,6 +139,24 @@ public class Employee {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public Set<Project> getAssignedProjects() {
+		return assignedProjects;
+	}
+
+	public void setAssignedProjects(Set<Project> assignedProjects) {
+		this.assignedProjects = assignedProjects;
+	}
+
+	public Set<Task> getAssignedTasks() {
+		return assignedTasks;
+	}
+
+	public void setAssignedTasks(Set<Task> assignedTasks) {
+		this.assignedTasks = assignedTasks;
+	}
+	
+	
 
 
 }

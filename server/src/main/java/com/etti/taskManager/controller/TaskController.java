@@ -50,6 +50,13 @@ public class TaskController {
 		return task;
 	}
 	
+	@GetMapping(produces = "application/json", value = "/getTaskByEmployee/{id}/")
+	public Set<Task> getTasksByEmployee(@PathVariable Long id){
+		Set<Task> task = taskService.getTasksByEmployee(id);
+		System.out.println("Asta am gasit: " + task.toString());
+		return task;
+	}
+	
 	@PostMapping(produces = "application/json", value="/save/")
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody

@@ -2,6 +2,7 @@ package com.etti.taskManager.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -63,6 +64,13 @@ public class ProjectServiceImpl implements ProjectService {
 		System.out.println(entityProject + "Has been deleted!");
 		projectRepository.delete(entityProject);
 	}
+
+	@Override
+	public Set<Project> getProjectsByEmployee(Long employeeId) {
+		return  projectRepository.findProjectsByEmployee(employeeId);
+	}
+	
+	
 	
 	
 

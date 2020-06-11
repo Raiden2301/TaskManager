@@ -49,5 +49,10 @@ public class TaskServiceImpl implements TaskService {
 		return null;
 	}
 
+	@Override
+	public Set<Task> getTasksByEmployee(Long employeeId) {
+		return taskRepository.findTasksByEmployee(employeeId);
+	}
+
 
 }

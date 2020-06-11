@@ -14,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "task")
 public class Task {
@@ -28,12 +30,6 @@ public class Task {
 	
 	@Column(name = "description", updatable = true, nullable = false)
 	private String description;
-	
-	@Column(name = "comments", updatable = true, nullable = true)
-	private String comments;
-	
-	@Column(name = "key_words", updatable = true, nullable = true)
-	private String keyWords;
 	
 	@Column(name = "start_date", updatable = true, nullable = true)
 	private Date startDate;
@@ -50,8 +46,15 @@ public class Task {
 	@Column(name = "status", updatable = true, nullable = true)
 	private String status;
 	
-	@Column(name = "project_id")
-	private Long projectId;
+	@JsonBackReference
+	@ManyToOne
+    @JoinColumn(name="project_id", nullable=true)
+	private Project project;
+	
+	@JsonBackReference
+	@ManyToOne
+    @JoinColumn(name="employee_id", nullable=true)
+	private Employee employee;
 	
 	public Task() {
 		super();
@@ -79,22 +82,6 @@ public class Task {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public String getComments() {
-		return comments;
-	}
-
-	public void setComments(String comments) {
-		this.comments = comments;
-	}
-
-	public String getKeyWords() {
-		return keyWords;
-	}
-
-	public void setKeyWords(String keyWords) {
-		this.keyWords = keyWords;
 	}
 
 	public String getStartDate() {
@@ -139,13 +126,20 @@ public class Task {
 		this.status = status;
 	}
 	
-
-	public Long getProjectId() {
-		return projectId;
+	public Project getProject() {
+		return project;
 	}
 
-	public void setProjectId(Long projectId) {
-		this.projectId = projectId;
+	public void setProject(Project project) {
+		this.project = project;
+	}
+
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
 
 }

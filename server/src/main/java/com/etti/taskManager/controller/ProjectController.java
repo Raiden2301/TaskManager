@@ -1,6 +1,7 @@
 package com.etti.taskManager.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.etti.taskManager.model.Project;
 import com.etti.taskManager.service.ProjectService;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @CrossOrigin
 @RestController
@@ -30,6 +32,13 @@ public class ProjectController {
 	@GetMapping(produces = "application/json", value = "/getProjects/")
 	public List<Project> getAllProjects(){
 		List<Project> projects = projectService.getAllProjects();
+		System.out.println("Asta am gasit: \n" + projects);
+		return projects;
+	}
+
+	@GetMapping(produces = "application/json", value = "/getProjectsByEmployee/{employeeId}")
+	public Set<Project> getProjectsByEmployee(@PathVariable Long employeeId){
+		Set<Project> projects = (Set<Project>) projectService.getProjectsByEmployee(employeeId);
 		System.out.println("Asta am gasit: \n" + projects);
 		return projects;
 	}
