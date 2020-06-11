@@ -35,4 +35,10 @@ public class EmployeeServiceImpl implements EmployeeService{
 		employeeRepository.delete(entity);
 	}
 
+	@Override
+	public Employee loginEmployee(String username) {
+		Employee entity = employeeRepository.loginEmployee(username);
+		return entity;
+	}
+
 }

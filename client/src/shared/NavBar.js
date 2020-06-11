@@ -15,7 +15,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
-import { updateLogin } from '../actions/CommonActions';
+import { logOut } from '../actions/CommonActions';
 
 import AppMenu from './Menu';
 
@@ -46,7 +46,7 @@ const NavBar = (props) => {
     };
 
     const handleLogout = () => {
-        props.updateLogin('UPDATE_LOGIN', false)
+        props.logOut('LOG_OUT')
         setAnchorElement(null)
     };
 
@@ -109,7 +109,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = {
-    updateLogin
+    logOut
 };
 
 

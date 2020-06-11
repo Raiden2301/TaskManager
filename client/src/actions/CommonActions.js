@@ -18,7 +18,11 @@ export const initializeLogin = (type = "INITIALIZE_LOGIN") => ({
     type: type
 })
 
-export const updateLogin = (type = "UPDATE_LOGIN", status) => ({
+export const logIn = (type = "LOG_IN", loginData) => ({
     type: type,
-    status: status
+    loginData: loginData
+})
+
+export const logOut = (type = "LOG_OUT") => ({
+    type: type
 })

@@ -10,6 +10,8 @@ public interface EmployeeService {
 	
 	public Employee getEmployeesById(Long id);
 	
+	public Employee loginEmployee(String username);
+	
 	public void deleteEmployeeById( Long id);
 	
 }

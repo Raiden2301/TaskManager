@@ -1,3 +1,4 @@
+import Axios from 'axios';
 import { store } from '../store';
 import history from '../history';
 
@@ -6,11 +7,34 @@ export const loginReducer = (state = {}, action) => {
         case 'INITIALIZE_LOGIN': {
             return Object.assign({}, state, { loggedIn: false });
         }
-        case 'UPDATE_LOGIN': {
-            console.log("am intrat aici")
-            localStorage.setItem('loggedIn', action.status)
-            history.push('/');
-            return Object.assign({}, state, { loggedIn: localStorage.getItem('loggedIn') });
+        case 'LOG_IN': {
+            // localStorage.setItem('loggedIn', action.status)
+            Axios.post('http://localhost:8081/employees/loginEmployee/', action.loginData)
+                .then((response) => {
+                    if (response.data !== '') {
+                        console.log("Asta e response", response)
+                        localStorage.setItem('loggedIn', true)
+                        history.push('/')
+                        return state
+                    } else {
+                        localStorage.setItem('loggedIn', false)
+                        history.push('/login')
+                        alert("Wrong username or password!")
+                        return state
+                    }
+                })
+                .catch((error) => {
+                    alert("Something went wrong")
+                    localStorage.setItem('loggedIn', false)
+                    history.push('/login');
+                    console.log(error)
+                })
+            return state
+        }
+        case 'LOG_OUT': {
+            localStorage.setItem('loggedIn', false)
+            history.push('/login')
+            return state
         }
         default:
             return state;

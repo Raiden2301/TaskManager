@@ -9,11 +9,16 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.etti.taskManager.model.Employee;
 import com.etti.taskManager.service.EmployeeService;
+import com.etti.taskManager.Utils.UserAccount;;
 
 @CrossOrigin
 @RestController
@@ -34,8 +39,18 @@ public class EmployeeController {
 	@GetMapping(produces = "application/json", value = "/getEmployee/{id}/")
 	public Employee getEmployeesById(@PathVariable Long id){
 		Employee employee = employeeService.getEmployeesById(id);
-		System.out.println("Asta am gasit: " + employee.toString());
 		return employee;
+	}
+	
+	@PostMapping(produces = "application/json", value="/loginEmployee/")
+	@ResponseStatus(HttpStatus.OK)
+	@ResponseBody
+	public Employee loginEmployee(@RequestBody UserAccount user){
+		Employee employee = employeeService.loginEmployee(user.getUsername());
+		if(employee.getPassword().equals(user.getPassword())){
+			return employee;
+		}
+		return null;
 	}
 	
     @DeleteMapping(value = "/deleteEmployee/{id}/")

@@ -12,7 +12,8 @@ import './App.css';
 
 
 const App = (props) => {
-  const isLoggedIn = localStorage.getItem('loggedIn')
+  let isLoggedIn = localStorage.getItem('loggedIn')
+  console.log("Aici", isLoggedIn)
   if (isLoggedIn === 'true') {
     return (
       <React.Fragment>
@@ -40,7 +41,7 @@ const App = (props) => {
   } else {
     return (
       <div className="App">
-        <Route path="/">
+        <Route path="/login">
           <LoginPage />
         </Route>
       </div>
