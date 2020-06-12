@@ -6,6 +6,16 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Divider from '@material-ui/core/Divider';
 
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import Tooltip from '@material-ui/core/Tooltip';
+
+import HomeIcon from '@material-ui/icons/Home';
+import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
+import ReportIcon from '@material-ui/icons/Report';
+
 import history from '../history';
 
 const useStyles = makeStyles(theme => ({
@@ -32,6 +42,8 @@ const AppMenu = () => {
         setAnchorEl(null);
     };
 
+    const isLoggedIn = localStorage.getItem('loggedIn')
+
     return (
         <div>
 
@@ -45,20 +57,69 @@ const AppMenu = () => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
             >
-                <MenuItem onClick={() => {
-                    history.push('/');
-                    setAnchorEl(null);
-                }}>Home Page</MenuItem>
-                <Divider />
-                <MenuItem onClick={() => {
-                    history.push('/projects');
-                    setAnchorEl(null);
-                }}>Projects</MenuItem>
-                <Divider />
-                <MenuItem onClick={() => {
-                    history.push('/tasks');
-                    setAnchorEl(null);
-                }}>Tasks</MenuItem>
+                {
+                    isLoggedIn === 'true' &&
+                    <div>
+                        <MenuItem onClick={() => {
+                            history.push('/');
+                            setAnchorEl(null);
+                        }}>
+                            <ListItemIcon>
+                                <HomeIcon fontSize="small" />
+                            </ListItemIcon>
+                            <ListItemText primary="Acasa" />
+                        </MenuItem>
+
+                        <Divider />
+
+                        <MenuItem onClick={() => {
+                            history.push('/projects');
+                            setAnchorEl(null);
+                        }}>
+                            <ListItemIcon>
+                                <BusinessCenterIcon fontSize="small" />
+                            </ListItemIcon>
+                            <ListItemText primary="Projects" />
+                        </MenuItem>
+
+                        <Divider />
+
+                        <MenuItem onClick={() => {
+                            history.push('/tasks');
+                            setAnchorEl(null);
+                        }}>
+                            <ListItemIcon>
+                                <AssignmentIcon fontSize="small" />
+                            </ListItemIcon>
+                            <ListItemText primary="Tasks" />
+                        </MenuItem>
+
+                        <Divider />
+
+                        <Tooltip title="Not implemented yet" aria-label="add">
+                            <MenuItem >
+                                <ListItemIcon>
+                                    <FormatListNumberedIcon fontSize="small" />
+                                </ListItemIcon>
+                                <ListItemText primary="My TO DOs" />
+                            </MenuItem>
+                        </Tooltip>
+
+                        <Divider />
+                    </div>
+                }
+
+
+                <Tooltip title="Not implemented yet" aria-label="add">
+                    <MenuItem>
+                        <ListItemIcon>
+                            <ReportIcon fontSize="small" />
+                        </ListItemIcon>
+                        <ListItemText primary="Report a problem" />
+                    </MenuItem>
+                </Tooltip>
+
+
             </Menu>
         </div>
     );

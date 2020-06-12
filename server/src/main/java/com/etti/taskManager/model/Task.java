@@ -14,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "task")
 public class Task {
@@ -23,17 +25,14 @@ public class Task {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Column(name = "priority", updatable = true, nullable = false)
+	private String priority;
+	
 	@Column(name = "name", updatable = true, nullable = false)
 	private String name;
 	
 	@Column(name = "description", updatable = true, nullable = false)
 	private String description;
-	
-	@Column(name = "comments", updatable = true, nullable = true)
-	private String comments;
-	
-	@Column(name = "key_words", updatable = true, nullable = true)
-	private String keyWords;
 	
 	@Column(name = "start_date", updatable = true, nullable = true)
 	private Date startDate;
@@ -50,8 +49,17 @@ public class Task {
 	@Column(name = "status", updatable = true, nullable = true)
 	private String status;
 	
-	@Column(name = "project_id")
+//	@JsonBackReference(value = "projects_tasks")
+//	@ManyToOne
+//    @JoinColumn(name="project_id", nullable=true)
+	@Column(name="project_id", nullable=true)
 	private Long projectId;
+	
+//	@JsonBackReference(value = "employees_tasks")
+//	@ManyToOne
+//    @JoinColumn(name="employee_id", nullable=true)
+	@Column(name="employee_id", nullable=true)
+	private Long employeeId;
 	
 	public Task() {
 		super();
@@ -79,22 +87,6 @@ public class Task {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public String getComments() {
-		return comments;
-	}
-
-	public void setComments(String comments) {
-		this.comments = comments;
-	}
-
-	public String getKeyWords() {
-		return keyWords;
-	}
-
-	public void setKeyWords(String keyWords) {
-		this.keyWords = keyWords;
 	}
 
 	public String getStartDate() {
@@ -139,6 +131,13 @@ public class Task {
 		this.status = status;
 	}
 	
+	public String getPriority() {
+		return priority;
+	}
+
+	public void setPriority(String priority) {
+		this.priority = priority;
+	}
 
 	public Long getProjectId() {
 		return projectId;
@@ -148,4 +147,12 @@ public class Task {
 		this.projectId = projectId;
 	}
 
+	public Long getEmployeeId() {
+		return employeeId;
+	}
+
+	public void setEmployeeId(Long employeeId) {
+		this.employeeId = employeeId;
+	}
+	
 }

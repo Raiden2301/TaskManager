@@ -8,13 +8,13 @@ import TextInputBoxWrapper from './components/TextInputBoxWrapper'
 import DialogWindow from './components/DialogWindow';
 import AppLayout from '../shared/AppLayout';
 import EnhancedTable from '../utils/components/EnhancedTable';
-import { getData, onSave } from '../actions/CommonActions';
-import { deleteProjectById } from '../actions/ProjectActions';
+import { getData, onSave, getDataById } from '../actions/CommonActions';
+import { deleteProjectById, getProjectsByEmployee, saveProject } from '../actions/ProjectActions';
 
 import './Pages.css'
 
-const _ = require('lodash');
-
+const _ = require('lodash')
+const loggedUserId = localStorage.getItem('loggedUserId')
 function getFields(project) {
     let fields = [];
     // eslint-disable-next-line array-callback-return
@@ -48,13 +48,10 @@ class Projects extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getData({}, 'GET_PROJECTS');
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-        if (this.props !== prevProps) {
-            this.props.projectObj && this.props.projectObj.projects && this.setState({ loading: false })
+        if (this.props.employeeObj.loggedEmployee === undefined) {
+            this.props.getDataById('GET_EMPLOYEE_BY_ID', loggedUserId)
         }
+
     }
 
     handleCreateProject = () => {
@@ -83,7 +80,7 @@ class Projects extends React.Component {
     }
 
     handleSave = () => {
-        this.props.onSave("SAVE_PROJECT", this.state.newProject)
+        this.props.saveProject("SAVE_PROJECT_BY_EMPLOYEE", this.state.newProject, this.props.employeeObj.loggedEmployee.id)
         this.setState({
             openDialog: false
         })
@@ -185,8 +182,9 @@ class Projects extends React.Component {
 
     render() {
         const alert = this.props.projectObj && this.props.projectObj.projectDeleted && this.props.projectObj.projectDeleted
-        const fields = this.props.projectObj.projects && getFields(this.props.projectObj.projects[0]);
-        let fieldsToSend = fields && [fields[0], fields[1], fields[5], fields[6]];
+        const assignedProjects = this.props.employeeObj && this.props.employeeObj.loggedEmployee && this.props.employeeObj.loggedEmployee.assignedProjects
+        const fields = assignedProjects && getFields(assignedProjects[0]);
+        let fieldsToSend = fields && [fields[0], fields[1], fields[3], fields[4]];
 
         let header = [];
         fieldsToSend && fieldsToSend.map((field, index) => {
@@ -198,13 +196,13 @@ class Projects extends React.Component {
         })
 
         let data = [];
-        this.props.projectObj && this.props.projectObj.projects && this.props.projectObj.projects.map((project, index) => {
+        assignedProjects && assignedProjects.map((project, index) => {
             data.push(project)
         })
 
         return (
             <AppLayout title="Projects">
-                {this.state.loading
+                {!this.props.employeeObj.loggedEmployee
                     ? <div className="loading-spinner">
                         <BeatLoader
                             // css={override}
@@ -244,13 +242,17 @@ class Projects extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-    projectObj: state.projectObj
+    projectObj: state.projectObj,
+    employeeObj: state.employeeObj
 });
 
 const mapDispatchToProps = {
     getData,
     onSave,
-    deleteProjectById
+    deleteProjectById,
+    getProjectsByEmployee,
+    getDataById,
+    saveProject
 };
 
 

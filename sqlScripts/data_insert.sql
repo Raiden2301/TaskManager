@@ -1,0 +1,11 @@
+INSERT INTO `taskmanager`.`employee` (`email`, `first_name`, `last_name`, `password`, `position`, `skills`, `vechime`) VALUES ('dev', 'Bogdan', 'Cristian', 'dev', 'Developer', 'Java', '1 an');
+INSERT INTO `taskmanager`.`employee` (`email`, `first_name`, `last_name`, `password`, `position`, `skills`, `vechime`) VALUES ('mireabogdancristian@gmail.com', 'Bogdan', 'Mirea', '1225', 'Tech Lead', 'Java, ReactJS', '1 an');
+INSERT INTO `taskmanager`.`project` (`description`, `expected_delivery_date`, `name`, `start_date`) VALUES ('Test Projeect', '2020-05-06', 'Project 1', '2020-04-03');
+INSERT INTO `taskmanager`.`project` (`description`, `expected_delivery_date`, `name`, `start_date`) VALUES ('Test Description', '2020-09-09', 'Project 2', '2020-05-06');
+INSERT INTO `taskmanager`.`assigned_projects` (`project_id`, `employee_id`) VALUES ('1', '3');
+INSERT INTO `taskmanager`.`assigned_projects` (`project_id`, `employee_id`) VALUES ('1', '4');
+INSERT INTO `taskmanager`.`assigned_projects` (`project_id`, `employee_id`) VALUES ('2', '3');
+INSERT INTO `taskmanager`.`assigned_projects` (`project_id`, `employee_id`) VALUES ('2', '4');
+INSERT INTO `taskmanager`.`task` (`description`, `estimated_time`, `expected_delivery_date`, `logged_time`, `name`, `start_date`, `status`, `employee_id`, `project_id`) VALUES ('Test Description', '1', '2020-06-06', '1', 'Test Name', '2020-02-02', 'TO DO', '3', '1');
+INSERT INTO `taskmanager`.`task` (`description`, `estimated_time`, `expected_delivery_date`, `logged_time`, `name`, `start_date`, `status`, `employee_id`, `project_id`) VALUES ('Test Description2', '2', '2020-06-06', '0', 'Test Name2', '2020-02-02', 'TO DO', '3', '2');
+INSERT INTO `taskmanager`.`task` (`description`, `estimated_time`, `expected_delivery_date`, `logged_time`, `name`, `start_date`, `status`, `employee_id`, `project_id`) VALUES ('Test Description3', '5', '2020-06-06', '0', 'Test Name3', '2020-02-02', 'TO DO', '4', '2');

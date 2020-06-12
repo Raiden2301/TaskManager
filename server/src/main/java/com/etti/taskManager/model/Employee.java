@@ -3,15 +3,22 @@ package com.etti.taskManager.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "employee")
@@ -36,8 +43,25 @@ public class Employee {
 
 	@Column(name = "vechime", updatable = true, nullable = true)
 	private String vechime;
-
-    
+	
+	@Column(name = "email", updatable = true, nullable = true)
+	private String email;
+	
+	@Column(name = "password", updatable = true, nullable = true)
+	private String password;
+	
+	@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
+	@ManyToMany(
+			fetch=FetchType.EAGER)
+	@JoinTable(
+			name = "assigned_projects", 
+			joinColumns = @JoinColumn(name = "employee_id"), 
+			inverseJoinColumns = @JoinColumn(name = "project_id"))
+	Set <Project> assignedProjects;
+	
+//	@JsonManagedReference(value = "employees_tasks")
+	@OneToMany(mappedBy="employeeId")
+	private Set<Task> assignedTasks;
     
 
 	public Employee() {
@@ -101,13 +125,40 @@ public class Employee {
 	public void setVechime(String vechime) {
 		this.vechime = vechime;
 	}
-
-	@Override
-	public String toString() {
-		return "Employee [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", position=" + position
-				+ ", skills=" + skills + ", vechime=" + vechime + ", projects="  + "]";
+	
+	public String getEmail() {
+		return email;
 	}
-    
-    
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Set<Project> getAssignedProjects() {
+		return assignedProjects;
+	}
+
+	public void setAssignedProjects(Set<Project> assignedProjects) {
+		this.assignedProjects = assignedProjects;
+	}
+
+	public Set<Task> getAssignedTasks() {
+		return assignedTasks;
+	}
+
+	public void setAssignedTasks(Set<Task> assignedTasks) {
+		this.assignedTasks = assignedTasks;
+	}
+	
+	
+
 
 }

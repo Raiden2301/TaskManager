@@ -13,6 +13,8 @@ public interface TaskService {
 	
 	public Set<Task> getTasksByProject(Long projectId);
 	
+	public Set<Task> getTasksByEmployee(Long employeeId);
+	
 	public Task createUpdateTask(Task task);
 	
 	public void deleteTaskById( Long id);
