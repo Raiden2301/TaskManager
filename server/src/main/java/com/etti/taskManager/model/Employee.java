@@ -62,6 +62,9 @@ public class Employee {
 //	@JsonManagedReference(value = "employees_tasks")
 	@OneToMany(mappedBy="employeeId")
 	private Set<Task> assignedTasks;
+	
+	@OneToMany(mappedBy="employeeId")
+	private Set<TODO> todoList;
     
 
 	public Employee() {
@@ -157,8 +160,13 @@ public class Employee {
 	public void setAssignedTasks(Set<Task> assignedTasks) {
 		this.assignedTasks = assignedTasks;
 	}
-	
-	
 
+	public Set<TODO> getTodoList() {
+		return todoList;
+	}
 
+	public void setTodoList(Set<TODO> todoList) {
+		this.todoList = todoList;
+	}
+	
 }

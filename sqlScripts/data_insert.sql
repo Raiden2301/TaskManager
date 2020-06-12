@@ -6,6 +6,9 @@ INSERT INTO `taskmanager`.`assigned_projects` (`project_id`, `employee_id`) VALU
 INSERT INTO `taskmanager`.`assigned_projects` (`project_id`, `employee_id`) VALUES ('1', '4');
 INSERT INTO `taskmanager`.`assigned_projects` (`project_id`, `employee_id`) VALUES ('2', '3');
 INSERT INTO `taskmanager`.`assigned_projects` (`project_id`, `employee_id`) VALUES ('2', '4');
-INSERT INTO `taskmanager`.`task` (`description`, `estimated_time`, `expected_delivery_date`, `logged_time`, `name`, `start_date`, `status`, `employee_id`, `project_id`) VALUES ('Test Description', '1', '2020-06-06', '1', 'Test Name', '2020-02-02', 'TO DO', '3', '1');
-INSERT INTO `taskmanager`.`task` (`description`, `estimated_time`, `expected_delivery_date`, `logged_time`, `name`, `start_date`, `status`, `employee_id`, `project_id`) VALUES ('Test Description2', '2', '2020-06-06', '0', 'Test Name2', '2020-02-02', 'TO DO', '3', '2');
-INSERT INTO `taskmanager`.`task` (`description`, `estimated_time`, `expected_delivery_date`, `logged_time`, `name`, `start_date`, `status`, `employee_id`, `project_id`) VALUES ('Test Description3', '5', '2020-06-06', '0', 'Test Name3', '2020-02-02', 'TO DO', '4', '2');
+INSERT INTO `taskmanager`.`task` (`description`, `estimated_time`, `expected_delivery_date`, `logged_time`, `name`,`priority`, `start_date`, `status`, `employee_id`, `project_id`) VALUES ('Test Description', '1', '2020-06-06', '1', 'Test Name', 'CRITICAL', '2020-02-02', 'TO DO', '3', '1');
+INSERT INTO `taskmanager`.`task` (`description`, `estimated_time`, `expected_delivery_date`, `logged_time`, `name`, `priority`,`start_date`, `status`, `employee_id`, `project_id`) VALUES ('Test Description2', '2', '2020-06-06', '0', 'Test Name2', 'MAJOR', '2020-02-02', 'TO DO', '3', '2');
+INSERT INTO `taskmanager`.`task` (`description`, `estimated_time`, `expected_delivery_date`, `logged_time`, `name`,`priority`, `start_date`, `status`, `employee_id`, `project_id`) VALUES ('Test Description3', '5', '2020-06-06', '0', 'Test Name3','MINOR', '2020-02-02', 'TO DO', '4', '2');
+INSERT INTO `taskmanager`.`todo` (`description`, `employee_id`, `name`, `status`) VALUES ('test description', '3', 'Test todo', 'TODO');
+INSERT INTO `taskmanager`.`todo` (`description`, `employee_id`, `name`, `status`) VALUES ('test description2', '3', 'Test todo2', 'TODO');
+INSERT INTO `taskmanager`.`todo` (`description`, `employee_id`, `name`, `status`) VALUES ('test description3', '4', 'Test todo3', 'TODO');
