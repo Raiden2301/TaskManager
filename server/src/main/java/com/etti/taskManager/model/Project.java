@@ -45,13 +45,13 @@ public class Project {
 	@Column(name = "expected_delivery_date", updatable = true, nullable = true)
 	private Date expectedDeliveryDate;
 	
-	@JsonManagedReference
-	@OneToMany(mappedBy="project")
+//	@JsonManagedReference(value = "projects_tasks")
+	@OneToMany(mappedBy="projectId")
 	private Set<Task> tasks;
 	
 	@JsonBackReference
 	@ManyToMany(
-			fetch=FetchType.LAZY)
+			fetch=FetchType.EAGER)
 	@JoinTable(
 			name = "assigned_projects", 
 			joinColumns = @JoinColumn(name = "project_id"), 

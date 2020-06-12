@@ -5,6 +5,7 @@ import DatePicker from 'react-date-picker';
 
 // eslint-disable-next-line no-unused-vars
 import { Container, Button, Grid, TextField, Paper, Typography } from '@material-ui/core';
+import MenuItem from '@material-ui/core/MenuItem';
 
 import EnhancedTable from '../utils/components/EnhancedTable';
 import AppLayout from '../shared/AppLayout';
@@ -18,33 +19,54 @@ import './Pages.css'
 
 const _ = require('lodash');
 
+const priority = [
+    {
+        value: 'CRITICAL',
+        label: 'CRITICAL',
+    },
+    {
+        value: 'MAJOR',
+        label: 'MAJOR',
+    },
+    {
+        value: 'MINOR',
+        label: 'MINOR',
+    },
+    {
+        value: 'NONE',
+        label: 'NONE',
+    },
+];
+
 function getFields(task) {
     let fields = [];
+    // if (task) {
     // eslint-disable-next-line array-callback-return
     Object.entries(task).map(([key, value], index) => {
         fields.push(key);
     });
+    // }
 
     return fields;
 }
 
 const ProjectEdit = (props) => {
-
+    const loggedUserId = localStorage.getItem('loggedUserId')
     let { id } = useParams()
     // eslint-disable-next-line no-unused-vars
     const [projectId, setProjectId] = useState(id)
     useEffect(() => {
         props.getProjectById('GET_PROJECT_BY_ID', projectId)
-        props.getTasksByProject('GET_TASKS_BY_PROJECT', projectId)
+        // props.getTasksByProject('GET_TASKS_BY_PROJECT', projectId)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [projectId]);
 
     const project = props.projectObj.requestedProject
-    const tasks = props.taskObj.tasksByProject ? props.taskObj.tasksByProject : null
+    const tasks = project ? project.tasks : null
 
 
     const fields = tasks ? getFields(tasks[0]) : null;
-    let fieldsToSend = fields && [fields[1], fields[10], fields[5], fields[7], fields[9]];
+    let fieldsToSend = fields && [fields[1], fields[2], fields[8], fields[5], fields[6], fields[7]];
 
     let header = [];
     fieldsToSend && fieldsToSend.map((field, index) => {
@@ -57,7 +79,7 @@ const ProjectEdit = (props) => {
     })
 
     let tasksData = [];
-    props.taskObj && props.taskObj.tasksByProject && props.taskObj.tasksByProject.map((task, index) => {
+    tasks && tasks.map((task, index) => {
         let taskToPush = {
             ...task, cellStyle: {
                 backgroundColor: '#039be5',
@@ -72,10 +94,12 @@ const ProjectEdit = (props) => {
         description: '',
         startDate: new Date(),
         expectedDeliveryDate: new Date(),
+        employeeId: loggedUserId,
         projectId: id,
         loggedTime: 0,
         estimatedTime: '',
-        status: 'TO DO'
+        status: 'TO DO',
+        priority: 'NONE'
     }
 
     const [open, setOpen] = useState(false)
@@ -166,6 +190,27 @@ const ProjectEdit = (props) => {
                         variant="standard"
                         placeholder="Estimated hours"
                     />
+                    <TextInputBoxWrapper
+                        id="priority"
+                        type="number"
+                        label="Priority"
+                        select={true}
+                        // error={props.error}
+                        disabled={false}
+                        required={false}
+                        value={taskDetails.priority}
+                        onChange={(event) => {
+                            setTaskDetails({ ...taskDetails, priority: event.target.value })
+                        }}
+                        variant="standard"
+                        placeholder="Change priority"
+                    >
+                        {priority.map((option) => (
+                            <MenuItem key={option.value} value={option.value}>
+                                {option.label}
+                            </MenuItem>
+                        ))}
+                    </TextInputBoxWrapper>
                     <Container className="date-picker-wrapper">
                         <DatePicker
                             id="startDate"
@@ -195,77 +240,18 @@ const ProjectEdit = (props) => {
     }
 
     return (
-        < AppLayout title="Edit Project" maxWidth="xl">
+        < AppLayout title="Manage Project" maxWidth="xl">
             <Container className="project-horizontal-layout">
                 <Grid container justify="center" >
-                    <Grid item xs={2}>
+                    <Grid item xs={1}>
                         <div>
                         </div>
                     </Grid>
-                    <Grid item xs={8}>
-                        <Paper elevation={3} className="edit-project-paper" >
-                            <div className="place-left">
-                                <h5>{project && project.name}</h5>
-                            </div>
-                            <TextField
-                                id="project-name"
-                                label="Nume"
-                                className="project-name"
-                            />
-                            <TextField
-                                id="project-description"
-                                label="Descriere"
-                                className="project-description"
-                                multiline
-                                rows={4}
-                            />
-                            <Typography variant="subtitle1" gutterBottom className="date-pickers">
-                                Start Date:
-                               <DatePicker
-                                    id="startDate"
-                                    className="project-dates"
-                                    showLeadingZeros={true}
-                                    dateFormat="dd-MM-y"
-                                // value={this.state.newProject.startDate}
-                                // onChange={date => {
-                                //     this.setState({
-                                //         newProject: {
-                                //             ...this.state.newProject,
-                                //             startDate: date
-                                //         }
-                                //     })
-                                // }}
-                                />
-                                End Date:
-                                <DatePicker
-                                    id="deliveryDate"
-                                    className="project-dates"
-                                    // calendarIcon={null}
-                                    // clearIcon={null}
-                                    showLeadingZeros={true}
-                                    dateFormat="dd/MM/yyyy"
-                                // value={this.state.newProject.expectedDeliveryDate}
-                                // onChange={date => {
-                                //     this.setState({
-                                //         newProject: {
-                                //             ...this.state.newProject,
-                                //             expectedDeliveryDate: date
-                                //         }
-                                //     })
-                                // }}
-                                />
-                            </Typography>
-                            <Container className="buttons-container">
-                                <Button variant="contained" className="primary-buttons"  >
-                                    Update details
-                            </Button>
-                            </Container>
-                        </Paper>
+                    <Grid item xs={10}>
                         <Paper elevation={3} className="add-task-paper">
                             <div className="place-left">
                                 <h5>Tasks</h5>
                             </div>
-                            {/* <EditableTable tableHead={fieldsToSend} rows={rows} /> */}
                             <EnhancedTable
                                 columns={header}
                                 data={tasksData}
@@ -278,12 +264,7 @@ const ProjectEdit = (props) => {
                             </Container>
                         </Paper>
                     </Grid>
-                    <Grid item xs={2}>
-                        <Paper elevation={3}>
-                            <div>
-                                <h4>Comments</h4>
-                            </div>
-                        </Paper>
+                    <Grid item xs={1}>
                     </Grid>
                 </Grid>
             </Container>
@@ -300,7 +281,8 @@ const ProjectEdit = (props) => {
 
 const mapStateToProps = (state, ownProps) => ({
     projectObj: state.projectObj,
-    taskObj: state.taskObj
+    employeeObj: state.employeeObj,
+    // taskObj: state.taskObj
 });
 
 const mapDispatchToProps = {

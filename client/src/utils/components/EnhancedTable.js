@@ -77,7 +77,7 @@ const EnhancedTable = (props) => {
     return (
         <React.Fragment>
             <MaterialTable
-                title={`Current ${props.name}`}
+                title={`Your current ${props.name}`}
                 columns={props.columns}
                 data={props.data}
                 actions={props.name === "projects" ? [
@@ -127,7 +127,7 @@ const EnhancedTable = (props) => {
                     headerStyle: {
                         backgroundColor: '#3f51b5',
                         color: '#FFF',
-                        fontSize: '1.2rem',
+                        fontSize: '1.1rem',
                         textAlign: 'center'
                     },
                     rowStyle: {

@@ -28,14 +28,14 @@ public class TaskController {
 	@Autowired
 	TaskService taskService;
 	
-	
+	@CrossOrigin
 	@GetMapping(produces = "application/json", value = "/getTasks/")
 	public List<Task> getAllTasks(){
 		List<Task> tasks = taskService.getAllTasks();
 		System.out.println(tasks);
 		return tasks;
 	}
-	
+	@CrossOrigin
 	@GetMapping(produces = "application/json", value = "/getTask/{id}/")
 	public Task getTasksById(@PathVariable Long id){
 		Task task = taskService.getTaskById(id);
@@ -49,7 +49,7 @@ public class TaskController {
 		System.out.println("Asta am gasit: " + task.toString());
 		return task;
 	}
-	
+	@CrossOrigin
 	@GetMapping(produces = "application/json", value = "/getTaskByEmployee/{id}/")
 	public Set<Task> getTasksByEmployee(@PathVariable Long id){
 		Set<Task> task = taskService.getTasksByEmployee(id);

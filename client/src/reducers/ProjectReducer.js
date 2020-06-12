@@ -21,9 +21,10 @@ export const projectReducer = (state = {}, action) => {
         case 'GOT_PROJECTS': {
             return Object.assign({}, state, { projects: action.data });
         }
-        case 'SAVE_PROJECT': {
+        case 'SAVE_PROJECT_BY_EMPLOYEE': {
             let data = action.data
-            Axios.post('http://localhost:8081/projects/save/', data)
+            let id = action.employeeId
+            Axios.post(`http://localhost:8081/projects/save/${id}`, data)
                 .then((response) => {
                     alert("Project was saved")
                 })
@@ -53,6 +54,21 @@ export const projectReducer = (state = {}, action) => {
         }
         case 'GOT_PROJECT_BY_ID': {
             return Object.assign({}, state, { requestedProject: action.data });
+        }
+        case 'GET_PROJECTS_BY_EMPLOYEE': {
+            let employeeId = action.employeeId;
+            let url = `http://localhost:8081/projects/getProjectsByEmployee/${employeeId}`;
+            Axios.get(url)
+                .then((response) => {
+                    store.dispatch(gotData(response.data, 'GOT_PROJECTS_BY_EMPLOYEE'));
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+            return state;
+        }
+        case 'GOT_PROJECTS_BY_EMPLOYEE': {
+            return Object.assign({}, state, { employeeProjects: action.data });
         }
         case 'DELETE_PROJECT_BY_ID': {
             let id = action.id;

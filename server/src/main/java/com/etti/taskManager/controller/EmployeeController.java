@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.etti.taskManager.model.Employee;
+import com.etti.taskManager.model.Project;
 import com.etti.taskManager.service.EmployeeService;
+import com.etti.taskManager.service.ProjectService;
 import com.etti.taskManager.Utils.UserAccount;;
 
 @CrossOrigin
@@ -27,8 +29,10 @@ public class EmployeeController {
 
 	@Autowired
 	EmployeeService employeeService;
+	@Autowired
+	ProjectService projectService;
 	
-	
+	@CrossOrigin
 	@GetMapping(produces = "application/json", value = "/getEmployees/")
 	public List<Employee> getAllEmployees(){
 		List<Employee> employees = employeeService.getAllEmployees();
@@ -36,12 +40,14 @@ public class EmployeeController {
 		return employees;
 	}
 	
+	@CrossOrigin
 	@GetMapping(produces = "application/json", value = "/getEmployee/{id}/")
 	public Employee getEmployeesById(@PathVariable Long id){
 		Employee employee = employeeService.getEmployeesById(id);
 		return employee;
 	}
 	
+	@CrossOrigin
 	@PostMapping(produces = "application/json", value="/loginEmployee/")
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
@@ -52,6 +58,16 @@ public class EmployeeController {
 		}
 		return null;
 	}
+	
+	@PostMapping(produces = "application/json", value="/save/")
+	@ResponseStatus(HttpStatus.OK)
+	@ResponseBody
+	public Employee createUpdateEmployee(@RequestBody Employee employee) {
+		
+		employeeService.save(employee);
+		return employee;
+	}
+	
 	
     @DeleteMapping(value = "/deleteEmployee/{id}/")
     public ResponseEntity<Employee> deleteEmployee(@PathVariable Long id) {

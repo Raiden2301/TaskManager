@@ -12,8 +12,9 @@ export const loginReducer = (state = {}, action) => {
             Axios.post('http://localhost:8081/employees/loginEmployee/', action.loginData)
                 .then((response) => {
                     if (response.data !== '') {
-                        console.log("Asta e response", response)
+                        console.log("Asta e response", response.data)
                         localStorage.setItem('loggedIn', true)
+                        localStorage.setItem('loggedUserId', response.data.id)
                         history.push('/')
                         return state
                     } else {

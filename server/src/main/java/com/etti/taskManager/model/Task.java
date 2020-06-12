@@ -25,6 +25,9 @@ public class Task {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Column(name = "priority", updatable = true, nullable = false)
+	private String priority;
+	
 	@Column(name = "name", updatable = true, nullable = false)
 	private String name;
 	
@@ -46,15 +49,17 @@ public class Task {
 	@Column(name = "status", updatable = true, nullable = true)
 	private String status;
 	
-	@JsonBackReference
-	@ManyToOne
-    @JoinColumn(name="project_id", nullable=true)
-	private Project project;
+//	@JsonBackReference(value = "projects_tasks")
+//	@ManyToOne
+//    @JoinColumn(name="project_id", nullable=true)
+	@Column(name="project_id", nullable=true)
+	private Long projectId;
 	
-	@JsonBackReference
-	@ManyToOne
-    @JoinColumn(name="employee_id", nullable=true)
-	private Employee employee;
+//	@JsonBackReference(value = "employees_tasks")
+//	@ManyToOne
+//    @JoinColumn(name="employee_id", nullable=true)
+	@Column(name="employee_id", nullable=true)
+	private Long employeeId;
 	
 	public Task() {
 		super();
@@ -126,20 +131,28 @@ public class Task {
 		this.status = status;
 	}
 	
-	public Project getProject() {
-		return project;
+	public String getPriority() {
+		return priority;
 	}
 
-	public void setProject(Project project) {
-		this.project = project;
+	public void setPriority(String priority) {
+		this.priority = priority;
 	}
 
-	public Employee getEmployee() {
-		return employee;
+	public Long getProjectId() {
+		return projectId;
 	}
 
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
+	public void setProjectId(Long projectId) {
+		this.projectId = projectId;
 	}
 
+	public Long getEmployeeId() {
+		return employeeId;
+	}
+
+	public void setEmployeeId(Long employeeId) {
+		this.employeeId = employeeId;
+	}
+	
 }

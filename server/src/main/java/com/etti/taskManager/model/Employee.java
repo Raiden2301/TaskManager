@@ -16,7 +16,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "employee")
@@ -48,17 +50,17 @@ public class Employee {
 	@Column(name = "password", updatable = true, nullable = true)
 	private String password;
 	
-	@JsonManagedReference
+	@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 	@ManyToMany(
-			fetch=FetchType.LAZY)
+			fetch=FetchType.EAGER)
 	@JoinTable(
 			name = "assigned_projects", 
 			joinColumns = @JoinColumn(name = "employee_id"), 
 			inverseJoinColumns = @JoinColumn(name = "project_id"))
 	Set <Project> assignedProjects;
 	
-	@JsonManagedReference
-	@OneToMany(mappedBy="employee")
+//	@JsonManagedReference(value = "employees_tasks")
+	@OneToMany(mappedBy="employeeId")
 	private Set<Task> assignedTasks;
     
 

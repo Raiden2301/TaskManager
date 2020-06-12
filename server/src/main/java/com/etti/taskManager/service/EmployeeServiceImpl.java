@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.etti.taskManager.model.Employee;
+import com.etti.taskManager.model.Project;
 import com.etti.taskManager.repository.EmployeeRepository;
 
 @Service
@@ -26,6 +27,12 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public Employee getEmployeesById(Long id) {
 		Employee empl = employeeRepository.findById(id).get();
 		return empl;
+	}
+	
+	@Override
+	public Employee save(Employee employee) {
+			employee = employeeRepository.save(employee);
+            return employee;
 	}
 	
 	@Override
