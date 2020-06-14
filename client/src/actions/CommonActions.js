@@ -14,6 +14,11 @@ export const getDataById = (type = 'GET_DATA_BY_ID', id) => ({
     id: id
 })
 
+export const deleteById = (type = 'GET_DATA_BY_ID', id) => ({
+    type: type,
+    id: id
+})
+
 export const onSave = (type = 'SAVE', data) => ({
     type: type,
     data: data

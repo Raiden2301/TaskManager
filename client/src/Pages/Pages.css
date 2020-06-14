@@ -103,4 +103,32 @@
 
 }
 
+.deleteIcon{
+    margin-top: 0.6rem;
+    margin-right: 2rem;
+}
+
+.addTodoDiv{
+    text-align: end;
+    margin-right: 1rem;
+    margin-top: 0.8rem;
+}
+
+.add-todo{
+        /* margin-right: 3rem!important; */
+        color: white!important;
+        background-color: #3f51b5!important;
+        /* margin-bottom: 2rem!important; */
+        margin: 0.5rem 1.2rem 1rem!important;
+}
+
+.todoButtons{
+    text-align: center;
+    padding-bottom: 1.0rem;
+}
+
+.dialogAction{
+    margin: 0rem 1rem 0rem 1rem !important;
+}
+
 
