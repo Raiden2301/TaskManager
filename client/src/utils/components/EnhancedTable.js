@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux';
 import MaterialTable from 'material-table'
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -20,6 +20,8 @@ const EnhancedTable = (props) => {
     const [editableTask, setEditableTask] = useState(null)
     const [idForDeletion, setIdForDeletion] = useState(null)
     const [descriptionForDialog, setDescriptionForDialog] = useState(null)
+
+    useEffect(() => console.log('mounted', props.data), [props.data]);
 
     const handleEdit = (id) => {
         if (props.name === "projects") {
@@ -62,7 +64,8 @@ const EnhancedTable = (props) => {
         const expectedDeliveryDate = new Date(editableTask.expectedDeliveryDate)
         let { tableData, cellStyle, ...taskToSend } = editableTask
         taskToSend = { ...taskToSend, "startDate": startDate, "expectedDeliveryDate": expectedDeliveryDate }
-        props.onSave("SAVE_TASK", taskToSend)
+        console.log("aici", taskToSend)
+        props.onSave("SAVE_TASK", taskToSend, taskToSend.id)
         setOpenTaskEdit(false);
     }
 
@@ -74,13 +77,14 @@ const EnhancedTable = (props) => {
         setEditableTask({ ...editableTask, [field]: event.target.value })
     }
 
+
     return (
         <React.Fragment>
             <MaterialTable
                 title={`Your current ${props.name}`}
                 columns={props.columns}
                 data={props.data}
-                actions={props.name === "projects" ? [
+                actions={props.data.length === 0 ? null : (props.name === "projects" ? [
                     {
                         icon: MoreHorizIcon,
                         tooltip: 'More',
@@ -119,7 +123,7 @@ const EnhancedTable = (props) => {
                             },
                             disabled: rowData.birthYear < 2000
                         })
-                    ]}
+                    ])}
                 options={{
                     showTitle: true,
                     actionsColumnIndex: -1,

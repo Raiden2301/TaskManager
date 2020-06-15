@@ -235,7 +235,6 @@ class Projects extends React.Component {
                     actions={this.getDialogActions()}
                     content={this.getDialogContent()}
                 />
-                {alert && alert}
             </AppLayout>
         )
     }

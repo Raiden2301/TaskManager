@@ -7,6 +7,7 @@ import HomePage from '../Pages/HomePage';
 import Tasks from '../Pages/Tasks';
 import Projects from '../Pages/Projects';
 import ProjectEdit from '../Pages/ProjectEdit';
+import TODOList from '../Pages/TODOList';
 import ReportPage from '../Pages/ReportPage';
 
 import './App.css';
@@ -28,6 +29,9 @@ const App = (props) => {
             </Route>
             <Route path="/project/:id">
               <ProjectEdit />
+            </Route>
+            <Route path="/todo">
+              <TODOList />
             </Route>
             <Route path="/login">
               <LoginPage />

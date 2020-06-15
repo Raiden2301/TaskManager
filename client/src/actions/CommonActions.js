@@ -14,9 +14,15 @@ export const getDataById = (type = 'GET_DATA_BY_ID', id) => ({
     id: id
 })
 
-export const onSave = (type = 'SAVE', data) => ({
+export const deleteById = (type = 'GET_DATA_BY_ID', id) => ({
     type: type,
-    data: data
+    id: id
+})
+
+export const onSave = (type = 'SAVE', data, neededId = -1) => ({
+    type: type,
+    data: data,
+    neededId: neededId
 })
 
 export const initializeLogin = (type = "INITIALIZE_LOGIN") => ({

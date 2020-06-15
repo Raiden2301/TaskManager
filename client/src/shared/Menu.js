@@ -96,14 +96,15 @@ const AppMenu = () => {
 
                         <Divider />
 
-                        <Tooltip title="Not implemented yet" aria-label="add">
-                            <MenuItem >
-                                <ListItemIcon>
-                                    <FormatListNumberedIcon fontSize="small" />
-                                </ListItemIcon>
-                                <ListItemText primary="My TO DOs" />
-                            </MenuItem>
-                        </Tooltip>
+                        <MenuItem onClick={() => {
+                            history.push('/todo');
+                            setAnchorEl(null);
+                        }}>
+                            <ListItemIcon>
+                                <FormatListNumberedIcon fontSize="small" />
+                            </ListItemIcon>
+                            <ListItemText primary="My TO DOs" />
+                        </MenuItem>
 
                         <Divider />
                     </div>

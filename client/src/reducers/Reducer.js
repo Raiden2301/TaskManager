@@ -3,6 +3,7 @@ import { employeeReducer } from './EmployeeReducer';
 import { taskReducer } from './TaskReducer';
 import { projectReducer } from './ProjectReducer';
 import { loginReducer } from './LoginReducer';
+import { todoReducer } from './TODOReducer';
 import { reportReducer } from './ReportReducer';
 
 export default combineReducers({
@@ -10,5 +11,6 @@ export default combineReducers({
     taskObj: taskReducer,
     projectObj: projectReducer,
     loginObj: loginReducer,
+    todoObj: todoReducer,
     reportObj: reportReducer
 })
