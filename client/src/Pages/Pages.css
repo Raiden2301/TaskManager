@@ -103,4 +103,24 @@
 
 }
 
+.reportBox{
+    margin-top: 1.5rem;
+    text-align: center;
+    display: inline-block;
+}
 
+.reportBoxMessage{
+    margin-top: 1.5rem;
+    text-align: center;
+    display: inline-block;
+    margin-right: 0.9rem;
+}
+
+.reportButtonDiv{
+    margin-top: 2rem!important;
+    text-align: end;
+}
+
+.reportMessage{
+    min-width: 29rem!important;
+}
