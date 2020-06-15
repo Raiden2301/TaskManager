@@ -7,13 +7,13 @@ import HomePage from '../Pages/HomePage';
 import Tasks from '../Pages/Tasks';
 import Projects from '../Pages/Projects';
 import ProjectEdit from '../Pages/ProjectEdit';
+import ReportPoage from '../Pages/ReportPoage';
 
 import './App.css';
 
 
 const App = (props) => {
   let isLoggedIn = localStorage.getItem('loggedIn')
-  console.log("Aici", isLoggedIn)
   if (isLoggedIn === 'true') {
     return (
       <React.Fragment>
@@ -31,6 +31,9 @@ const App = (props) => {
             <Route path="/login">
               <LoginPage />
             </Route>
+            <Route path="/report">
+              <ReportPoage />
+            </Route>
             <Route path="/">
               <HomePage />
             </Route>
@@ -42,6 +45,9 @@ const App = (props) => {
     return (
       <div className="App">
         <Route path="/login">
+          <LoginPage />
+        </Route>
+        <Route path="/report">
           <LoginPage />
         </Route>
       </div>
