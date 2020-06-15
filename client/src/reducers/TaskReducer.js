@@ -1,6 +1,9 @@
 import Axios from 'axios';
-import { getData, gotData } from '../actions/CommonActions';
+import { getDataById, gotData } from '../actions/CommonActions';
+import { getProjectById } from '../actions/ProjectActions'
 import { store } from '../store';
+
+const loggedUserId = localStorage.getItem('loggedUserId')
 
 export const taskReducer = (state = {}, action) => {
     switch (action.type) {
@@ -20,9 +23,11 @@ export const taskReducer = (state = {}, action) => {
         }
         case 'SAVE_TASK': {
             let data = action.data
+            let projectId = action.neededId
             Axios.post('http://localhost:8081/tasks/save/', data)
                 .then((response) => {
                     alert("Task was saved")
+                    store.dispatch(getProjectById('GET_PROJECT_BY_ID', projectId));
                 })
                 .catch((error) => {
                     alert("Something went wrong")

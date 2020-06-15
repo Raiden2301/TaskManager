@@ -111,16 +111,15 @@ const AppMenu = () => {
                 }
 
 
-                <Tooltip title="Not implemented yet" aria-label="add">
-                    <MenuItem>
-                        <ListItemIcon>
-                            <ReportIcon fontSize="small" />
-                        </ListItemIcon>
-                        <ListItemText primary="Report a problem" />
-                    </MenuItem>
-                </Tooltip>
-
-
+                <MenuItem onClick={() => {
+                    history.push('/report');
+                    setAnchorEl(null);
+                }}>
+                    <ListItemIcon>
+                        <ReportIcon fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText primary="Report a problem" />
+                </MenuItem>
             </Menu>
         </div>
     );

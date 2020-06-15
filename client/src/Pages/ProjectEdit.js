@@ -40,12 +40,12 @@ const priority = [
 
 function getFields(task) {
     let fields = [];
-    // if (task) {
-    // eslint-disable-next-line array-callback-return
-    Object.entries(task).map(([key, value], index) => {
-        fields.push(key);
-    });
-    // }
+    if (task) {
+        // eslint-disable-next-line array-callback-return
+        Object.entries(task).map(([key, value], index) => {
+            fields.push(key);
+        });
+    }
 
     return fields;
 }
@@ -89,6 +89,7 @@ const ProjectEdit = (props) => {
         tasksData.push(taskToPush)
     })
 
+    useEffect(() => console.log('ProjectEdtid', tasksData), [tasksData]);
     const emptyTaskData = {
         name: '',
         description: '',
@@ -126,7 +127,7 @@ const ProjectEdit = (props) => {
     }
 
     const handleSave = () => {
-        props.onSave("SAVE_TASK", taskDetails)
+        props.onSave("SAVE_TASK", taskDetails, projectId)
         setOpen(false)
     }
 

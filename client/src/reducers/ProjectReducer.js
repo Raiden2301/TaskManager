@@ -1,9 +1,11 @@
 import React from 'react';
 import Alert from '@material-ui/lab/Alert';
 import Axios from 'axios';
-import { gotData } from '../actions/CommonActions';
+import { gotData, getDataById } from '../actions/CommonActions';
 import { store } from '../store';
 import history from '../history';
+
+const loggedUserId = localStorage.getItem('loggedUserId')
 
 export const projectReducer = (state = {}, action) => {
     switch (action.type) {
@@ -27,6 +29,7 @@ export const projectReducer = (state = {}, action) => {
             Axios.post(`http://localhost:8081/projects/save/${id}`, data)
                 .then((response) => {
                     alert("Project was saved")
+                    store.dispatch(getDataById('GET_EMPLOYEE_BY_ID', loggedUserId));
                 })
                 .catch((error) => {
                     alert("Something went wrong")
@@ -75,25 +78,12 @@ export const projectReducer = (state = {}, action) => {
             let url = `http://localhost:8081/projects/deleteProject/${id}`;
             Axios.delete(url)
                 .then((response) => {
-                    const snackBar = () => {
-                        return (
-                            <Alert variant="filled" severity="success">
-                                This is a success alert — check it out!
-                            </Alert>
-                        )
-                    }
-                    return Object.assign({}, state, { projectDeleted: snackBar });
+                    alert("Project was deleted")
+                    store.dispatch(getDataById('GET_EMPLOYEE_BY_ID', loggedUserId));
                 })
                 .catch((error) => {
-                    const snackBar = () => {
-                        return (
-                            <Alert variant="filled" severity="error">
-                                This is a success alert — check it out!
-                            </Alert>
-                        )
-                    }
-                    console.log(error);
-                    return Object.assign({}, state, { projectDeleted: snackBar });
+                    alert("Something went wrong")
+                    console.log(error)
                 });
             return state;
         }
