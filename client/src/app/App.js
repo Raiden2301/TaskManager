@@ -7,13 +7,14 @@ import HomePage from '../Pages/HomePage';
 import Tasks from '../Pages/Tasks';
 import Projects from '../Pages/Projects';
 import ProjectEdit from '../Pages/ProjectEdit';
-import ReportPoage from '../Pages/ReportPoage';
+import ReportPage from '../Pages/ReportPage';
 
 import './App.css';
 
 
 const App = (props) => {
   let isLoggedIn = localStorage.getItem('loggedIn')
+  console.log("aicisa", isLoggedIn)
   if (isLoggedIn === 'true') {
     return (
       <React.Fragment>
@@ -32,7 +33,7 @@ const App = (props) => {
               <LoginPage />
             </Route>
             <Route path="/report">
-              <ReportPoage />
+              <ReportPage />
             </Route>
             <Route path="/">
               <HomePage />
@@ -43,14 +44,18 @@ const App = (props) => {
     )
   } else {
     return (
-      <div className="App">
-        <Route path="/login">
-          <LoginPage />
-        </Route>
-        <Route path="/report">
-          <LoginPage />
-        </Route>
-      </div>
+      <React.Fragment>
+        <div className="App">
+          < Switch >
+            <Route path="/report">
+              <ReportPage />
+            </Route>
+            <Route path="/">
+              <LoginPage />
+            </Route>
+          </Switch >
+        </div >
+      </React.Fragment>
     )
   }
 }

@@ -5,6 +5,8 @@ import { Grid, TextField, Box, Button } from '@material-ui/core';
 import AppLayout from '../shared/AppLayout';
 import { getDataById, onSave } from '../actions/CommonActions';
 
+import './Pages.css'
+
 const ReportPage = (props) => {
 
     const loggedUserId = localStorage.getItem('loggedUserId')
@@ -37,56 +39,57 @@ const ReportPage = (props) => {
 
 
     return (
-        <AppLayout title="Report a problem">
-            <Grid container spacing={3}>
-                <Grid item xs={6}>
-                    <Box >
-                        <TextField
-                            id="firstName"
-                            label="First Name"
-                            variant="outlined"
-                            onChange={(event) => { handleChange(event) }} />
-                    </Box>
-                </Grid>
-                <Grid item xs={6}>
-                    <Box>
-                        <TextField
-                            id="lastName"
-                            label="Last Name"
-                            variant="outlined"
-                            onChange={(event) => { handleChange(event) }} />
-                    </Box>
-                </Grid>
-            </Grid>
-            <Box >
+        <AppLayout title="Report a problem" maxWidth="sm">
+            <Box width={250} className="reportBox">
+                <TextField
+                    id="firstName"
+                    label="First Name"
+                    variant="outlined"
+                    onChange={(event) => { handleChange(event) }} />
+            </Box>
+            <Box width={250} className="reportBox">
+                <TextField
+                    id="lastName"
+                    label="Last Name"
+                    variant="outlined"
+                    onChange={(event) => { handleChange(event) }} />
+            </Box>
+            <Box width={250} className="reportBox">
                 <TextField
                     id="email"
                     label="Email"
                     variant="outlined"
                     onChange={(event) => { handleChange(event) }} />
             </Box>
-            <Box >
+            <Box width={250} className="reportBox">
                 <TextField
                     id="subject"
                     label="Subject"
                     variant="outlined"
                     onChange={(event) => { handleChange(event) }} />
             </Box>
-            <Box >
+            <Box width={450} className="reportBoxMessage">
                 <TextField
                     id="message"
                     label="Message"
                     variant="outlined"
+                    multiline
+                    rows={4}
+                    className="reportMessage"
                     onChange={(event) => { handleChange(event) }} />
             </Box>
 
-            <Button
-                variant="contained"
-                color="primary"
-                onClick={handleSend}
-            >
-                Send email
+            <div className="reportButtonDiv">
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleSend}
+
+                >
+                    Send email
             </Button>
+            </div>
+
         </AppLayout>
     )
 }
