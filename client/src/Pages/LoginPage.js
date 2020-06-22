@@ -14,8 +14,8 @@ const LoginPage = (props) => {
         username: '',
         password: ''
     })
-
-
+    let isLoggedIn = localStorage.getItem('loggedIn')
+    console.log("logged", isLoggedIn)
     return (
         <AppLayout title="Login Page">
             <div className="home-page">
@@ -42,7 +42,11 @@ const LoginPage = (props) => {
                         }}
                     />
                     <div className="form-buttons">
-                        <Button variant="contained" className="primary-buttons" onClick={() => props.logIn('LOG_IN', loginData)}>
+                        <Button
+                            variant="contained"
+                            className="primary-buttons"
+                            onClick={() => props.logIn('LOG_IN', loginData)}
+                        >
                             Log in
                         </Button>
                         <Tooltip title="Not implemented yet" aria-label="add">
@@ -56,7 +60,7 @@ const LoginPage = (props) => {
         </AppLayout>
     )
 }
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state) => ({
     loginObj: state.loginObj
 });
 

@@ -58,7 +58,10 @@ const NavBar = (props) => {
                 <Toolbar>
                     <AppMenu />
                     {/* <SideDrawer /> */}
-                    <Typography variant="h6" className={classes.title}>
+                    <Typography
+                        variant="h6"
+                        className={classes.title}
+                    >
                         {props.title}
                     </Typography>
                     {
@@ -88,7 +91,6 @@ const NavBar = (props) => {
                                 open={open}
                                 onClose={handleClose}
                             >
-
                                 <MenuItem onClick={handleLogout}>
                                     <ListItemIcon>
                                         <ExitToAppIcon fontSize="small" />

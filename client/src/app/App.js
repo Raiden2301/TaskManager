@@ -10,12 +10,14 @@ import ProjectEdit from '../Pages/ProjectEdit';
 import TODOList from '../Pages/TODOList';
 import ReportPage from '../Pages/ReportPage';
 
+import history from '../history';
+
 import './App.css';
 
 
 const App = (props) => {
   let isLoggedIn = localStorage.getItem('loggedIn')
-  console.log("aicisa", isLoggedIn)
+  console.log("logged in app", isLoggedIn)
   if (isLoggedIn === 'true') {
     return (
       <React.Fragment>
@@ -33,11 +35,11 @@ const App = (props) => {
             <Route path="/todo">
               <TODOList />
             </Route>
-            <Route path="/login">
-              <LoginPage />
-            </Route>
             <Route path="/report">
               <ReportPage />
+            </Route>
+            <Route path="/login">
+              <LoginPage />
             </Route>
             <Route path="/">
               <HomePage />
@@ -47,15 +49,16 @@ const App = (props) => {
       </React.Fragment>
     )
   } else {
+    history.push('/login')
     return (
       <React.Fragment>
         <div className="App">
           < Switch >
+            <Route path="/login">
+              <LoginPage />
+            </Route>
             <Route path="/report">
               <ReportPage />
-            </Route>
-            <Route path="/">
-              <LoginPage />
             </Route>
           </Switch >
         </div >

@@ -7,11 +7,14 @@ import DatePicker from 'react-date-picker';
 import TextInputBoxWrapper from './components/TextInputBoxWrapper'
 import DialogWindow from './components/DialogWindow';
 import AppLayout from '../shared/AppLayout';
-// import EditableTable from '../utils/components/EditableTable';
+import EnhancedTable from '../utils/components/EnhancedTable';
 
-import { getData, onSave } from '../actions/CommonActions';
+import { getData, onSave, getDataById } from '../actions/CommonActions';
 
 import './Pages.css'
+
+const _ = require('lodash')
+const loggedUserId = localStorage.getItem('loggedUserId')
 
 function getFields(task) {
     let fields = [];
@@ -24,6 +27,7 @@ function getFields(task) {
 }
 
 class Tasks extends React.Component {
+
 
     constructor(props) {
         super(props);
@@ -46,12 +50,17 @@ class Tasks extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getData({}, 'GET_TASKS');
+        if (this.props.employeeObj.loggedEmployee === undefined) {
+            this.props.getDataById('GET_EMPLOYEE_BY_ID', loggedUserId)
+        }
+        this.props.employeeObj &&
+            this.props.employeeObj.loggedEmployee && this.setState({ loading: false })
     }
 
     componentDidUpdate(prevProps, prevState) {
         if (this.props !== prevProps) {
-            this.props.taskObj && this.props.taskObj.tasks && this.setState({ loading: false })
+            this.props.employeeObj &&
+                this.props.employeeObj.loggedEmployee && this.setState({ loading: false })
         }
     }
 
@@ -179,21 +188,25 @@ class Tasks extends React.Component {
     }
 
     render() {
-        const fields = this.props.taskObj.tasks && getFields(this.props.taskObj.tasks[0]);
+        console.log("Tasks", this.props)
+        const assignedTasks = this.props.employeeObj &&
+            this.props.employeeObj.loggedEmployee &&
+            this.props.employeeObj.loggedEmployee.assignedTasks
+        const fields = assignedTasks && getFields(assignedTasks[0]);
         let fieldsToSend = fields && [fields[1], fields[10], fields[5], fields[7], fields[9]];
-        let rows = [];
-        // eslint-disable-next-line array-callback-return
-        this.props.taskObj && this.props.taskObj.tasks && this.props.taskObj.tasks.map((task, index) => {
-            let row = [];
-            // eslint-disable-next-line array-callback-return
-            fieldsToSend.map((field, index) => {
-                if (field === "loggedTime") {
-                    row.push(`${task[field]}h`)
-                } else {
-                    row.push(task[field])
-                }
-            })
-            rows.push(row)
+
+        let header = [];
+        fieldsToSend && fieldsToSend.map((field, index) => {
+            let columnHeader = {
+                title: _.startCase(field),
+                field: field
+            }
+            header.push(columnHeader)
+        })
+
+        let data = [];
+        assignedTasks && assignedTasks.map((task, index) => {
+            data.push(task)
         })
 
         return (
@@ -212,6 +225,11 @@ class Tasks extends React.Component {
                     :
                     <React.Fragment>
                         {/* <EditableTable tableHead={fieldsToSend} rows={rows} /> */}
+                        <EnhancedTable
+                            columns={header}
+                            data={data}
+                            name="tasks"
+                        />
                         <Container className="buttons-container">
                             <Button variant="contained" className="primary-buttons" onClick={this.handleCreateTask}>
                                 New Task
@@ -234,12 +252,14 @@ class Tasks extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-    taskObj: state.taskObj
+    taskObj: state.taskObj,
+    employeeObj: state.employeeObj
 });
 
 const mapDispatchToProps = {
     getData,
-    onSave
+    onSave,
+    getDataById
 };
 
 

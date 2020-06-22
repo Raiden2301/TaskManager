@@ -249,21 +249,16 @@ const ProjectEdit = (props) => {
                         </div>
                     </Grid>
                     <Grid item xs={10}>
-                        <Paper elevation={3} className="add-task-paper">
-                            <div className="place-left">
-                                <h5>Tasks</h5>
-                            </div>
-                            <EnhancedTable
-                                columns={header}
-                                data={tasksData}
-                                name="tasks"
-                            />
-                            <Container className="buttons-container">
-                                <Button variant="contained" className="primary-buttons" onClick={() => handleCreateTask()}>
-                                    Add task
+                        <EnhancedTable
+                            columns={header}
+                            data={tasksData}
+                            name="tasks"
+                        />
+                        <Container className="buttons-container">
+                            <Button variant="contained" className="primary-buttons" onClick={() => handleCreateTask()}>
+                                Add task
                             </Button>
-                            </Container>
-                        </Paper>
+                        </Container>
                     </Grid>
                     <Grid item xs={1}>
                     </Grid>

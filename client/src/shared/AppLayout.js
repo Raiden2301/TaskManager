@@ -14,8 +14,7 @@ const AppLayout = (props) => {
             <Container maxWidth={props.maxWidth ? props.maxWidth : "md"} className="layout-container">
                 {props.children}
             </Container>
-
-            <Footer />
+            {/* <Footer /> */}
         </div>
     )
 }

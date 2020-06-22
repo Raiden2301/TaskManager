@@ -181,7 +181,6 @@ class Projects extends React.Component {
     }
 
     render() {
-        const alert = this.props.projectObj && this.props.projectObj.projectDeleted && this.props.projectObj.projectDeleted
         const assignedProjects = this.props.employeeObj && this.props.employeeObj.loggedEmployee && this.props.employeeObj.loggedEmployee.assignedProjects
         const fields = assignedProjects && getFields(assignedProjects[0]);
         let fieldsToSend = fields && [fields[0], fields[1], fields[3], fields[4]];

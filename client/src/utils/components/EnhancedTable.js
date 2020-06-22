@@ -81,7 +81,7 @@ const EnhancedTable = (props) => {
     return (
         <React.Fragment>
             <MaterialTable
-                title={`Your current ${props.name}`}
+                title={`Current ${props.name}`}
                 columns={props.columns}
                 data={props.data}
                 actions={props.data.length === 0 ? null : (props.name === "projects" ? [
