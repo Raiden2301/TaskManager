@@ -47,6 +47,9 @@ public class Employee {
 	@Column(name = "email", updatable = true, nullable = true)
 	private String email;
 	
+	@Column(name = "user_name", updatable = true, nullable = true)
+	private String userName;
+	
 	@Column(name = "password", updatable = true, nullable = true)
 	private String password;
 	
@@ -135,6 +138,14 @@ public class Employee {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getPassword() {

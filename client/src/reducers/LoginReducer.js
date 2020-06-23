@@ -11,13 +11,11 @@ export const loginReducer = (state = {}, action) => {
             Axios.post('http://localhost:8081/employees/loginEmployee/', action.loginData)
                 .then((response) => {
                     if (response.data !== '') {
-                        console.log("Am intrat in response bun")
                         localStorage.setItem('loggedIn', true)
                         localStorage.setItem('loggedUserId', response.data.id)
                         history.push('/')
                         return state
                     } else {
-                        console.log("Am intrat in response negativ")
                         localStorage.setItem('loggedIn', false)
                         history.push('/login')
                         alert("Wrong username or password!")

@@ -3,8 +3,7 @@ export const gotData = (data, type = 'GOT_DATA') => ({
     type: type
 })
 
-export const getData = (params = {}, type = 'GET_DATA', gotType = 'GOT_DATA') => ({
-    params: params,
+export const getData = (type = 'GET_DATA', gotType = 'GOT_DATA') => ({
     gotType: gotType,
     type: type
 })

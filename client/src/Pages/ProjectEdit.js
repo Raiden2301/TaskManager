@@ -12,6 +12,7 @@ import AppLayout from '../shared/AppLayout';
 import TextInputBoxWrapper from './components/TextInputBoxWrapper'
 import DialogWindow from './components/DialogWindow';
 import { getData, onSave } from '../actions/CommonActions';
+import { getAllEmployees } from '../actions/EmployeeActions';
 import { getProjectById } from '../actions/ProjectActions'
 import { getTasksByProject } from '../actions/TaskActions'
 
@@ -57,14 +58,14 @@ const ProjectEdit = (props) => {
     const [projectId, setProjectId] = useState(id)
     useEffect(() => {
         props.getProjectById('GET_PROJECT_BY_ID', projectId)
+        props.getAllEmployees('GET_EMPLOYEES')
         // props.getTasksByProject('GET_TASKS_BY_PROJECT', projectId)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [projectId]);
 
     const project = props.projectObj.requestedProject
     const tasks = project ? project.tasks : null
-
-
+    const employees = props.employeeObj && props.employeeObj.employees
     const fields = tasks ? getFields(tasks[0]) : null;
     let fieldsToSend = fields && [fields[1], fields[2], fields[8], fields[5], fields[6], fields[7]];
 
@@ -77,6 +78,10 @@ const ProjectEdit = (props) => {
 
         header.push(columnHeader)
     })
+    header.push({
+        title: 'Assignee',
+        field: "assignee"
+    })
 
     let tasksData = [];
     tasks && tasks.map((task, index) => {
@@ -86,10 +91,28 @@ const ProjectEdit = (props) => {
                 color: '#FFF'
             }
         }
+        employees && employees.map((emp, index) => {
+            if (emp.id === taskToPush.employeeId) {
+                taskToPush = {
+                    ...taskToPush,
+                    assignee: `${emp.firstName} ${emp.lastName}`
+                }
+            }
+        })
+        if (taskToPush.employeeId == loggedUserId) {
+            taskToPush = {
+                ...taskToPush,
+                disabled: false
+            }
+        } else {
+            taskToPush = {
+                ...taskToPush,
+                disabled: true
+            }
+        }
         tasksData.push(taskToPush)
     })
 
-    useEffect(() => console.log('ProjectEdtid', tasksData), [tasksData]);
     const emptyTaskData = {
         name: '',
         description: '',
@@ -151,90 +174,172 @@ const ProjectEdit = (props) => {
         return (
             <Container className="dialog-container">
                 <div className="grid-vertical">
-                    <TextInputBoxWrapper
-                        id="taskName"
-                        label="Task Name"
-                        // error={props.error}
-                        disabled={false}
-                        required={false}
-                        value={taskDetails.name}
-                        onChange={(event) => {
-                            setTaskDetails({ ...taskDetails, name: event.target.value })
-                        }}
-                        variant="standard"
-                        placeholder="Task Name"
-                    />
-                    <TextInputBoxWrapper
-                        id="taskDescription"
-                        label="Task Description"
-                        // error={props.error}
-                        disabled={false}
-                        required={false}
-                        value={taskDetails.description}
-                        onChange={(event) => {
-                            setTaskDetails({ ...taskDetails, description: event.target.value })
-                        }}
-                        variant="standard"
-                        placeholder="Task Description"
-                    />
-                    <TextInputBoxWrapper
-                        id="estimatedTime"
-                        type="number"
-                        label="Estimated Time"
-                        // error={props.error}
-                        disabled={false}
-                        required={false}
-                        value={taskDetails.estimatedTime}
-                        onChange={(event) => {
-                            setTaskDetails({ ...taskDetails, estimatedTime: event.target.value })
-                        }}
-                        variant="standard"
-                        placeholder="Estimated hours"
-                    />
-                    <TextInputBoxWrapper
-                        id="priority"
-                        type="number"
-                        label="Priority"
-                        select={true}
-                        // error={props.error}
-                        disabled={false}
-                        required={false}
-                        value={taskDetails.priority}
-                        onChange={(event) => {
-                            setTaskDetails({ ...taskDetails, priority: event.target.value })
-                        }}
-                        variant="standard"
-                        placeholder="Change priority"
-                    >
-                        {priority.map((option) => (
-                            <MenuItem key={option.value} value={option.value}>
-                                {option.label}
-                            </MenuItem>
-                        ))}
-                    </TextInputBoxWrapper>
-                    <Container className="date-picker-wrapper">
-                        <DatePicker
-                            id="startDate"
-                            className="date-picker"
-                            showLeadingZeros={true}
-                            dateFormat="dd-MM-y"
-                            value={taskDetails.startDate}
-                            onChange={(date) => setTaskDetails({ ...taskDetails, startDate: date })}
-                        />
-                    </Container>
-                    <Container className="date-picker-wrapper">
-                        <DatePicker
-                            id="deliveryDate"
-                            className="date-picker"
-                            // calendarIcon={null}
-                            // clearIcon={null}
-                            showLeadingZeros={true}
-                            dateFormat="dd/MM/yyyy"
-                            value={taskDetails.expectedDeliveryDate}
-                            onChange={(date) => setTaskDetails({ ...taskDetails, expectedDeliveryDate: date })}
-                        />
-                    </Container>
-
+                    <Grid container spacing={0}>
+                        <Grid item xs={4} className="add-task-label">
+                            <Typography variant="subtitle1" gutterBottom>
+                                Task name
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={8}>
+                            <TextInputBoxWrapper
+                                id="taskName"
+                                label="Task Name"
+                                // error={props.error}
+                                disabled={false}
+                                required={false}
+                                value={taskDetails.name}
+                                onChange={(event) => {
+                                    setTaskDetails({ ...taskDetails, name: event.target.value })
+                                }}
+                                variant="standard"
+                                placeholder="Task Name"
+                            />
+                        </Grid>
+                    </Grid>
+                    <Grid container spacing={0}>
+                        <Grid item xs={4} className="add-task-label">
+                            <Typography variant="subtitle1" gutterBottom>
+                                Task description
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={8}>
+                            <TextInputBoxWrapper
+                                id="taskDescription"
+                                label="Task Description"
+                                // error={props.error}
+                                disabled={false}
+                                required={false}
+                                value={taskDetails.description}
+                                onChange={(event) => {
+                                    setTaskDetails({ ...taskDetails, description: event.target.value })
+                                }}
+                                variant="standard"
+                                placeholder="Task Description"
+                            />
+                        </Grid>
+                    </Grid>
+                    <Grid container spacing={0}>
+                        <Grid item xs={4} className="add-task-label">
+                            <Typography variant="subtitle1" gutterBottom>
+                                Estimated time
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={8}>
+                            <TextInputBoxWrapper
+                                id="estimatedTime"
+                                type="number"
+                                label="Estimated Time"
+                                // error={props.error}
+                                disabled={false}
+                                required={false}
+                                value={taskDetails.estimatedTime}
+                                onChange={(event) => {
+                                    setTaskDetails({ ...taskDetails, estimatedTime: event.target.value })
+                                }}
+                                variant="standard"
+                                placeholder="Estimated hours"
+                            />
+                        </Grid>
+                    </Grid>
+                    <Grid container spacing={0}>
+                        <Grid item xs={4} className="add-task-label">
+                            <Typography variant="subtitle1" gutterBottom>
+                                Priority
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={8}>
+                            <TextInputBoxWrapper
+                                id="priority"
+                                type="number"
+                                label="Priority"
+                                select={true}
+                                // error={props.error}
+                                disabled={false}
+                                required={false}
+                                value={taskDetails.priority}
+                                onChange={(event) => {
+                                    setTaskDetails({ ...taskDetails, priority: event.target.value })
+                                }}
+                                variant="standard"
+                                placeholder="Change priority"
+                            >
+                                {priority.map((option) => (
+                                    <MenuItem key={option.value} value={option.value}>
+                                        {option.label}
+                                    </MenuItem>
+                                ))}
+                            </TextInputBoxWrapper>
+                        </Grid>
+                    </Grid>
+                    <Grid container spacing={0}>
+                        <Grid item xs={4} className="add-task-label">
+                            <Typography variant="subtitle1" gutterBottom>
+                                Assignee
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={8}>
+                            <TextInputBoxWrapper
+                                id="assignee"
+                                label="Assignee"
+                                select={true}
+                                // error={props.error}
+                                disabled={false}
+                                required={false}
+                                value={taskDetails.employeeId}
+                                onChange={(event) => {
+                                    setTaskDetails({ ...taskDetails, employeeId: event.target.value })
+                                }}
+                                variant="standard"
+                                placeholder="Assign task"
+                            >
+                                {employees && employees.map((emp) => (
+                                    <MenuItem key={emp.id} value={emp.id}>
+                                        {emp.firstName} {emp.lastName}
+                                    </MenuItem>
+                                ))}
+                            </TextInputBoxWrapper>
+                        </Grid>
+                    </Grid>
+                    <Grid container spacing={0}>
+                        <Grid item xs={4} className="add-task-label">
+                            <Typography variant="subtitle1" gutterBottom>
+                                Start date
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={8}>
+                            <Container className="date-picker-wrapper">
+                                <DatePicker
+                                    id="startDate"
+                                    className="date-picker"
+                                    showLeadingZeros={true}
+                                    dateFormat="dd-MM-y"
+                                    value={taskDetails.startDate}
+                                    onChange={(date) => setTaskDetails({ ...taskDetails, startDate: date })}
+                                />
+                            </Container>
+                        </Grid>
+                    </Grid>
+                    <Grid container spacing={0}>
+                        <Grid item xs={4} className="add-task-label">
+                            <Typography variant="subtitle1" gutterBottom>
+                                Expected delivery date
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={8}>
+                            <Container className="date-picker-wrapper">
+                                <DatePicker
+                                    id="deliveryDate"
+                                    className="date-picker"
+                                    // calendarIcon={null}
+                                    // clearIcon={null}
+                                    showLeadingZeros={true}
+                                    dateFormat="dd/MM/yyyy"
+                                    value={taskDetails.expectedDeliveryDate}
+                                    onChange={(date) => setTaskDetails({ ...taskDetails, expectedDeliveryDate: date })}
+                                />
+                            </Container>
+                        </Grid>
+                    </Grid>
                 </div>
             </Container>
         )
@@ -277,12 +382,12 @@ const ProjectEdit = (props) => {
 
 const mapStateToProps = (state, ownProps) => ({
     projectObj: state.projectObj,
-    employeeObj: state.employeeObj,
+    employeeObj: state.employeeObj
     // taskObj: state.taskObj
 });
 
 const mapDispatchToProps = {
-    getData,
+    getAllEmployees,
     onSave,
     getProjectById,
     getTasksByProject

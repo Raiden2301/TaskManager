@@ -36,7 +36,7 @@ public class EmployeeController {
 	@GetMapping(produces = "application/json", value = "/getEmployees/")
 	public List<Employee> getAllEmployees(){
 		List<Employee> employees = employeeService.getAllEmployees();
-		System.out.println(employees);
+		System.out.println("S-a activat getAllEmployyes");
 		return employees;
 	}
 	

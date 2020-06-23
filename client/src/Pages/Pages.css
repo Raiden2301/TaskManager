@@ -152,3 +152,16 @@
 .reportMessage{
     min-width: 29rem!important;
 }
+
+.add-task-label{
+    text-align: left;
+    margin-top: 1.4rem!important;
+}
+
+.homepageInstructions{
+    text-align: left;
+}
+
+.tasksRange{
+    max-width: 90%!important;
+}

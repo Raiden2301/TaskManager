@@ -17,9 +17,15 @@ export default function ConfirmationDialog(props) {
             >
                 <DialogTitle id="responsive-dialog-title"> {props.title}</DialogTitle>
                 <DialogContent>
-                    <DialogContentText>
-                        Are you sure you wish to delete this project?
-                    </DialogContentText>
+                    {props.name === 'projects' ?
+                        <DialogContentText>
+                            Are you sure you wish to delete this project?
+                        </DialogContentText>
+                        :
+                        <DialogContentText>
+                            Are you sure you wish to delete this task?
+                        </DialogContentText>
+                    }
                 </DialogContent>
                 <DialogActions>
                     <Button autoFocus onClick={props.handleCancel} color="primary">

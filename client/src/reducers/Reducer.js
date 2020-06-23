@@ -5,6 +5,7 @@ import { projectReducer } from './ProjectReducer';
 import { loginReducer } from './LoginReducer';
 import { todoReducer } from './TODOReducer';
 import { reportReducer } from './ReportReducer';
+import { snackReducer } from './SnackReducer';
 
 export default combineReducers({
     employeeObj: employeeReducer,
@@ -12,5 +13,6 @@ export default combineReducers({
     projectObj: projectReducer,
     loginObj: loginReducer,
     todoObj: todoReducer,
-    reportObj: reportReducer
+    reportObj: reportReducer,
+    snackObj: snackReducer
 })

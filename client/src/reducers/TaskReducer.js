@@ -1,6 +1,7 @@
 import Axios from 'axios';
 import { getDataById, gotData } from '../actions/CommonActions';
 import { getProjectById } from '../actions/ProjectActions'
+import { callSnack } from '../actions/SnackActions'
 import { store } from '../store';
 
 const loggedUserId = localStorage.getItem('loggedUserId')
@@ -26,11 +27,11 @@ export const taskReducer = (state = {}, action) => {
             let projectId = action.neededId
             Axios.post('http://localhost:8081/tasks/save/', data)
                 .then((response) => {
-                    alert("Task was saved")
                     store.dispatch(getProjectById('GET_PROJECT_BY_ID', projectId));
+                    store.dispatch(callSnack('SUCCESS', 'Task was saved!'));
                 })
                 .catch((error) => {
-                    alert("Something went wrong")
+                    store.dispatch(callSnack('FAILURE', 'Something went wrong!'));
                     console.log(error)
                 })
             return state;
@@ -49,6 +50,21 @@ export const taskReducer = (state = {}, action) => {
         }
         case 'GOT_TASKS_BY_PROJECT': {
             return Object.assign({}, state, { tasksByProject: action.data });
+        }
+        case 'DELETE_TASK_BY_ID': {
+            let taskId = action.taskId;
+            let projectId = action.projectId
+            let url = `http://localhost:8081/tasks/deleteTask/${taskId}/`;
+            Axios.delete(url)
+                .then((response) => {
+                    store.dispatch(getProjectById('GET_PROJECT_BY_ID', projectId));
+                    store.dispatch(callSnack('SUCCESS', 'Task was deleted!'));
+                })
+                .catch((error) => {
+                    store.dispatch(callSnack('FAILURE', 'Something went wrong!'));
+                    console.log(error)
+                });
+            return state;
         }
         default:
             return state;

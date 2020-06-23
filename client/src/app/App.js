@@ -17,7 +17,6 @@ import './App.css';
 
 const App = (props) => {
   let isLoggedIn = localStorage.getItem('loggedIn')
-  console.log("logged in app", isLoggedIn)
   if (isLoggedIn === 'true') {
     return (
       <React.Fragment>

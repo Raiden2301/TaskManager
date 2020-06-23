@@ -188,12 +188,14 @@ class Tasks extends React.Component {
     }
 
     render() {
-        console.log("Tasks", this.props)
         const assignedTasks = this.props.employeeObj &&
             this.props.employeeObj.loggedEmployee &&
             this.props.employeeObj.loggedEmployee.assignedTasks
+        const assignedProjects = this.props.employeeObj &&
+            this.props.employeeObj.loggedEmployee &&
+            this.props.employeeObj.loggedEmployee.assignedProjects
         const fields = assignedTasks && getFields(assignedTasks[0]);
-        let fieldsToSend = fields && [fields[1], fields[10], fields[5], fields[7], fields[9]];
+        let fieldsToSend = fields && [fields[1], fields[2], fields[5], fields[6], fields[7], fields[8]];
 
         let header = [];
         fieldsToSend && fieldsToSend.map((field, index) => {
@@ -203,14 +205,29 @@ class Tasks extends React.Component {
             }
             header.push(columnHeader)
         })
+        header.push({
+            title: 'Project',
+            field: "project"
+        })
 
         let data = [];
         assignedTasks && assignedTasks.map((task, index) => {
-            data.push(task)
+            let taskToPush = {
+                ...task
+            }
+            assignedProjects && assignedProjects.map((proj, index) => {
+                if (proj.id == task.projectId) {
+                    taskToPush = {
+                        ...taskToPush,
+                        project: `${proj.name}`
+                    }
+                }
+            })
+            data.push(taskToPush)
         })
 
         return (
-            <AppLayout title="Tasks">
+            <AppLayout title="Tasks" maxWidth="lg">
                 {this.state.loading
                     ? <div className="loading-spinner">
                         <BeatLoader
@@ -223,19 +240,19 @@ class Tasks extends React.Component {
                         />
                     </div>
                     :
-                    <React.Fragment>
+                    <Container className="tasksRange">
                         {/* <EditableTable tableHead={fieldsToSend} rows={rows} /> */}
                         <EnhancedTable
                             columns={header}
                             data={data}
                             name="tasks"
                         />
-                        <Container className="buttons-container">
+                        {/* <Container className="buttons-container">
                             <Button variant="contained" className="primary-buttons" onClick={this.handleCreateTask}>
                                 New Task
                             </Button>
-                        </Container>
-                    </React.Fragment>
+                        </Container> */}
+                    </Container>
                 }
 
 

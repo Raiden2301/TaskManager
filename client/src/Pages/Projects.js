@@ -51,7 +51,6 @@ class Projects extends React.Component {
         if (this.props.employeeObj.loggedEmployee === undefined) {
             this.props.getDataById('GET_EMPLOYEE_BY_ID', loggedUserId)
         }
-
     }
 
     handleCreateProject = () => {

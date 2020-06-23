@@ -15,6 +15,7 @@ import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
 import ReportIcon from '@material-ui/icons/Report';
+import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 
 import history from '../history';
 
@@ -67,7 +68,7 @@ const AppMenu = () => {
                             <ListItemIcon>
                                 <HomeIcon fontSize="small" />
                             </ListItemIcon>
-                            <ListItemText primary="Acasa" />
+                            <ListItemText primary="Home Page" />
                         </MenuItem>
 
                         <Divider />
@@ -91,7 +92,7 @@ const AppMenu = () => {
                             <ListItemIcon>
                                 <AssignmentIcon fontSize="small" />
                             </ListItemIcon>
-                            <ListItemText primary="Tasks" />
+                            <ListItemText primary="My Tasks" />
                         </MenuItem>
 
                         <Divider />
@@ -105,6 +106,25 @@ const AppMenu = () => {
                             </ListItemIcon>
                             <ListItemText primary="My TO DOs" />
                         </MenuItem>
+
+                        <Divider />
+                    </div>
+                }
+                {
+                    !(isLoggedIn === 'true') &&
+                    <div>
+                        <MenuItem onClick={() => {
+                            history.push('/login');
+                            setAnchorEl(null);
+                        }}>
+                            <ListItemIcon>
+                                <MeetingRoomIcon fontSize="small" />
+                            </ListItemIcon>
+                            <ListItemText primary="Log In" />
+                        </MenuItem>
+
+                        <Divider />
+
 
                         <Divider />
                     </div>

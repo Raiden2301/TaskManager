@@ -15,7 +15,6 @@ const LoginPage = (props) => {
         password: ''
     })
     let isLoggedIn = localStorage.getItem('loggedIn')
-    console.log("logged", isLoggedIn)
     return (
         <AppLayout title="Login Page">
             <div className="home-page">
@@ -50,7 +49,7 @@ const LoginPage = (props) => {
                             Log in
                         </Button>
                         <Tooltip title="Not implemented yet" aria-label="add">
-                            <Button variant="contained" className="primary-buttons" onClick={() => { console.log(loginData) }}>
+                            <Button variant="contained" className="primary-buttons">
                                 Sign In
                         </Button>
                         </Tooltip>

@@ -29,7 +29,6 @@ const TODOList = (props) => {
     const onChange = (event, todo) => {
         const statusToSend = todo.status === 'TODO' ? 'DONE' : 'TODO'
         let dataToSend = { ...todo, status: statusToSend }
-        console.log("Uite aici", todo, dataToSend)
         props.onSave('SAVE_TODO', dataToSend)
     }
 

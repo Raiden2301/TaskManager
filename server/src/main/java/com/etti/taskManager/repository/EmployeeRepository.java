@@ -10,7 +10,7 @@ import com.etti.taskManager.model.Employee;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 	
-	@Query("FROM Employee where email = :username")
+	@Query("FROM Employee where userName = :username")
 	public Employee loginEmployee(
 			@Param("username") String username);
 	

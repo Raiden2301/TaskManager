@@ -9,7 +9,6 @@ export const employeeReducer = (state = {}, action) => {
             Axios.get(url)
                 .then((response) => {
                     store.dispatch(gotData(response.data, 'GOT_EMPLOYEES'));
-                    console.log("data: ", response.data);
                 })
                 .catch((error) => {
                     console.log(error);

@@ -10,22 +10,19 @@ import './Pages.css'
 const ReportPage = (props) => {
 
     const loggedUserId = localStorage.getItem('loggedUserId')
+    const isLoggedIn = localStorage.getItem('loggedIn')
     const employee = props.employeeObj && props.employeeObj.loggedEmployee
-
     const emptyReport = {
-        firstName: '',
-        lastName: '',
-        email: '',
+
         subject: '',
         message: ''
     }
 
-    const [mail, setMail] = useState({})
+    const [mail, setMail] = useState(emptyReport)
 
     useEffect(() => {
         props.getDataById('GET_EMPLOYEE_BY_ID', loggedUserId)
     }, [loggedUserId]);
-
 
 
     const handleChange = (event) => {
@@ -33,7 +30,17 @@ const ReportPage = (props) => {
     }
 
     const handleSend = () => {
-        console.log(mail)
+        let mailToSend = {
+            ...mail
+        }
+        if (isLoggedIn === 'true') {
+            mailToSend = {
+                ...mail,
+                firstName: employee.firstName,
+                lastName: employee.lastName,
+                email: employee.email,
+            }
+        }
         props.onSave('SEND_REPORT', mail)
     }
 
@@ -41,25 +48,56 @@ const ReportPage = (props) => {
     return (
         <AppLayout title="Report a problem" maxWidth="sm">
             <Box width={250} className="reportBox">
-                <TextField
-                    id="firstName"
-                    label="First Name"
-                    variant="outlined"
-                    onChange={(event) => { handleChange(event) }} />
+                {isLoggedIn === 'true' ?
+                    <TextField
+                        id="firstName"
+                        disabled={true}
+                        value={employee && employee.firstName}
+                        helperText="First Name"
+                        variant="outlined"
+                    />
+                    :
+                    <TextField
+                        id="firstName"
+                        label="First Name"
+                        variant="outlined"
+                        onChange={(event) => { handleChange(event) }} />
+                }
+
             </Box>
             <Box width={250} className="reportBox">
-                <TextField
-                    id="lastName"
-                    label="Last Name"
-                    variant="outlined"
-                    onChange={(event) => { handleChange(event) }} />
+                {isLoggedIn === 'true' ?
+                    <TextField
+                        id="lastName"
+                        disabled={true}
+                        value={employee && employee.lastName}
+                        helperText="Last Name"
+                        variant="outlined"
+                    />
+                    :
+                    <TextField
+                        id="lastName"
+                        label="Last Name"
+                        variant="outlined"
+                        onChange={(event) => { handleChange(event) }} />
+                }
             </Box>
             <Box width={250} className="reportBox">
-                <TextField
-                    id="email"
-                    label="Email"
-                    variant="outlined"
-                    onChange={(event) => { handleChange(event) }} />
+                {isLoggedIn === 'true' ?
+                    <TextField
+                        id="email"
+                        disabled={true}
+                        value={employee && employee.email}
+                        helperText="Email"
+                        variant="outlined"
+                    />
+                    :
+                    <TextField
+                        id="email"
+                        label="Email"
+                        variant="outlined"
+                        onChange={(event) => { handleChange(event) }} />
+                }
             </Box>
             <Box width={250} className="reportBox">
                 <TextField
