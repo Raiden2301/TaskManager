@@ -41,7 +41,7 @@ const ReportPage = (props) => {
                 email: employee.email,
             }
         }
-        props.onSave('SEND_REPORT', mail)
+        props.onSave('SEND_REPORT', mailToSend)
     }
 
 
